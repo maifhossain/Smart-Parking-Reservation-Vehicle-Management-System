@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Parking - Premium Reservation & Management</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background: #f6f6f8;
+      color: #0f172a;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1440px;
+      margin: auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b1e8a 0%, #6d28d9 100%);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    .btn-outline {
+      background: white;
+      border: 2px solid #3b1e8a33;
+      color: #0f172a;
+    }
+
+    .btn-outline:hover {
+      border-color: #3b1e8a;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .gradient-primary {
+      background: linear-gradient(135deg, #3b1e8a 0%, #6d28d9 100%);
+    }
+
+    .gradient-cta {
+      background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 20px 0;
+      border-bottom: 1px solid #ddd;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .logo-box {
+      background: #3b1e8a;
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      font-weight: 600;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .hero {
+      padding: 80px 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 50px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(59, 30, 138, 0.1);
+      color: #3b1e8a;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      font-weight: 900;
+    }
+
+    .hero h1 span {
+      color: #3b1e8a;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #475569;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .hero-image {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+
+    .hud {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .stats {
+      margin-top: -40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stats-grid,
+    .features-grid,
+    .locations-grid,
+    .footer-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .features-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .locations-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .footer-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .card {
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 42px;
+      margin-bottom: 12px;
+      font-weight: 900;
+    }
+
+    .section-title p {
+      color: #64748b;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .feature-box,
+    .location-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    }
+
+    .feature-box {
+      padding: 30px;
+    }
+
+    .icon-box {
+      background: rgba(59, 30, 138, 0.1);
+      color: #3b1e8a;
+      width: fit-content;
+      padding: 15px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+    }
+
+    .location-content {
+      padding: 24px;
+    }
+
+    .status {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .available {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .limited {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .location-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 16px;
+      gap: 12px;
+    }
+
+    .location-info {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .location-footer {
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .price {
+      font-size: 28px;
+      font-weight: 900;
+      color: #3b1e8a;
+    }
+
+    .cta {
+      padding: 100px 0;
+    }
+
+    .cta-box {
+      border-radius: 32px;
+      padding: 70px 30px;
+      color: white;
+      text-align: center;
+    }
+
+    .cta-box h2 {
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 20px;
+    }
+
+    .cta-box p {
+      max-width: 700px;
+      margin: auto;
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 30px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      background: #020617;
+      color: #94a3b8;
+      padding: 80px 0 30px;
+    }
+
+    footer h4 {
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    footer ul {
+      list-style: none;
+    }
+
+    footer ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #1e293b;
+      margin-top: 50px;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .section-title h2,
+      .cta-box h2 {
+        font-size: 32px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-wrapper">
+      <div class="logo">
+        <div class="logo-box">
+          <span class="material-symbols-outlined">local_parking</span>
+        </div>
+        SmartParking
+      </div>
+
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Locations</a>
+        <a href="#">Pricing</a>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-outline">Login</button>
+        <button class="btn btn-primary">Sign Up</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge">
+          <span class="material-symbols-outlined">verified</span>
+          Next-Gen Urban Mobility
+        </div>
+
+        <h1>Find Parking <span>Easily</span>, Anytime.</h1>
+        <p>
+          Experience the future of urban mobility with our real-time smart parking reservation system.
+          Secure your spot in seconds and eliminate the hassle of circling blocks.
+        </p>
+
+        <div class="hero-buttons">
+          <button class="btn btn-primary">Find Parking</button>
+          <button class="btn btn-outline">View Locations</button>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="Images/hero section image.png" alt="Smart Parking Lot" />
+        <div class="glass hud">24 Available Slots</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="glass card">
+        <p>Available Spaces Today</p>
+        <h3>124</h3>
+      </div>
+      <div class="glass card">
+        <p>Active Reservations</p>
+        <h3>57</h3>
+      </div>
+      <div class="glass card">
+        <p>Avg. Occupancy</p>
+        <h3>68%</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Smart Features for Seamless Parking</h2>
+        <p>Advanced technology integration designed to save you time and provide peace of mind every time you park.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="icon-box"><span class="material-symbols-outlined">schedule</span></div>
+          <h3>Real-Time Availability</h3>
+          <p>Never guess again. View live slot status across all our locations instantly.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="icon-box"><span class="material-symbols-outlined">touch_app</span></div>
+          <h3>Easy Reservation</h3>
+          <p>Secure your preferred parking spot with just one tap on your device.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="icon-box"><span class="material-symbols-outlined">vpn_key</span></div>
+          <h3>Secure OTP</h3>
+          <p>Unique access codes for every booking ensure your vehicle stays protected.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="icon-box"><span class="material-symbols-outlined">analytics</span></div>
+          <h3>Smart Management</h3>
+          <p>Full history tracking and automated billing for enterprise-grade management.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations -->
+  <section class="section" style="background: white;">
+    <div class="container">
+      <div class="section-title">
+        <h2>Popular Parking Locations</h2>
+        <p>Hand-picked premium spots in the heart of the city.</p>
+      </div>
+
+      <div class="locations-grid">
+        <div class="location-card">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuACzjEOCWAe2vePmbNHnO3gaYskcfiFwiZPOvnUcA5NMflnaqDscqx4PFR13kW5b8ZCrOeK8NmVmns6dbXLbexH3yVsivL1iu_OK_FHL9SYWPwNuxLj-xuflfJlP_WUG7VKromhoY74q8uaaBHzoX8TC3C_wurGKp1juejM0iJwQuJbQyoWPCxebEmm-Xm88CYas1G9cihDJYRJm1fc55cLpSCU9ddPiUtwXAn9SLdpqJGBTAVrGUMYglgcZ7LIjMlbHA_zV8_KfoY" alt="City Center Parking" />
+          <div class="location-content">
+            <div class="location-top">
+              <h3>City Center Plaza</h3>
+              <span class="status available">Available</span>
+            </div>
+            <div class="location-info">
+              <p>Downtown Financial District</p>
+              <p>32 / 80 Spaces Available</p>
+            </div>
+            <div class="location-footer">
+              <div class="price">$2.00/hr</div>
+              <button class="btn btn-outline">Details</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="location-card">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPdMN5oIzCy3OignTMJ0ncoV5MgsrxwewUWTmTonpBtvfyj2M1Mt1NoaCcjoL3o6IfmHCTKieZOexMi5mnwcZwjEEpBa9a7_1PxIEi3zEd5I9LNbQOxwZuBuNzHjwWDSNKTtrzm3a7w6wQg2jg4GOEZPQbOufTV8SK8p4IEd0NPIfwfFbn8tcVxJTy5Dz7FALhZfPE8dR6FK-Qe3VBz3IYgAyoc5Vl6t2q76fgyy4b3mX27imDqbfdQvGc7vjJR8Rb0-7lNXlE4gM" alt="Westside Mall Parking" />
+          <div class="location-content">
+            <div class="location-top">
+              <h3>Westside Mall</h3>
+              <span class="status limited">Limited</span>
+            </div>
+            <div class="location-info">
+              <p>Retail & Arts Quarter</p>
+              <p>5 / 150 Spaces Available</p>
+            </div>
+            <div class="location-footer">
+              <div class="price">$1.50/hr</div>
+              <button class="btn btn-outline">Details</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="location-card">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoDqhqJGGU2ZaxRPrSAs_0t9wlVnu7sof_7cPwYcn0qQmNfKFUMxRwTDxkvPquEtfpcpHAbbOv-1byazOi_BrQD4DIgoZUn2jp-fcsUJRFobhKfkfE0T3PY6riIfYGCOyNRN4I3tBkKMTM7X6xTRJbDoS-W8bXgYlvu6sMIVfeTmm6z6gg32_Q3gzSTUTEYGrvY_0lYd389XT1u0CTLtlvz2mC7njSpDNZQuK-b2CxsuNqH1sMADS3Y0_BR-6UNDqaa_GudySn5cc" alt="Skyline Executive Garage" />
+          <div class="location-content">
+            <div class="location-top">
+              <h3>Skyline Executive</h3>
+              <span class="status available">Available</span>
+            </div>
+            <div class="location-info">
+              <p>Corporate Tech Center</p>
+              <p>87 / 200 Spaces Available</p>
+            </div>
+            <div class="location-footer">
+              <div class="price">$4.00/hr</div>
+              <button class="btn btn-outline">Details</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-box gradient-cta">
+        <h2>Ready to upgrade your parking experience?</h2>
+        <p>
+          Join thousands of drivers who have simplified their daily commute.
+          Sign up today and get your first 2 hours free.
+        </p>
+        <div class="cta-buttons">
+          <button class="btn" style="background:white; color:#3b1e8a;">Sign Up Now</button>
+          <button class="btn" style="background:rgba(255,255,255,0.15); color:white; border:1px solid rgba(255,255,255,0.3);">Contact Sales</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="logo" style="color:white; margin-bottom: 20px;">
+          <div class="logo-box">
+            <span class="material-symbols-outlined">local_parking</span>
+          </div>
+          SmartParking
+        </div>
+        <p>
+          Revolutionizing urban mobility through data-driven parking management and seamless user experiences.
+        </p>
+      </div>
+
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Partners</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Safety Information</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">API References</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© 2024 SmartParking Reservation Systems. All rights reserved.</p>
+      <div>
+        <a href="#">Privacy</a> |
+        <a href="#">Terms</a> |
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
