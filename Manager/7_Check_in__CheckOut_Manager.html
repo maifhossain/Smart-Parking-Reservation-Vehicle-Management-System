@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Smart Parking - Check-in / Check-out</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3b8a', // Deep Blue from DataStore
+                        secondary: '#10B981', // Emerald Green
+                        cta: '#F59E0B', // Soft Orange
+                        background: '#F8FAFC', // Light Gray
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'custom': '8px', // Based on ROUND_EIGHT
+                    }
+                }
+            }
+        }
+    </script>
+    <style data-purpose="layout-styles">
+
+        
+        body {
+            background-color: #F8FAFC;
+            color: #1E293B;
+        }
+
+        .sidebar-item-active {
+            background-color: rgba(30, 59, 138, 0.1);
+            color: #1e3b8a;
+            border-right: 4px solid #1e3b8a;
+        }
+
+        .sidebar-item {
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-item:hover {
+            background-color: rgba(30, 59, 138, 0.05);
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+
+<body class="flex min-h-screen">
+    <!-- BEGIN: LeftSidebar -->
+    <aside class="w-64 border-r border-slate-200  bg-white  flex flex-col fixed h-full">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">local_parking</span>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm leading-tight">Smart Parking</h1>
+                    <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Manager Panel</p>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 space-y-1 mt-4">
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors"
+                    href="1_Manager_Dashboard.html">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="2.1_Reservations_1.html">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    <span class="text-sm">Reservations</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="3_Parking_Spaces.html">
+                    <span class="material-symbols-outlined">garage</span>
+                    <span class="text-sm">Parking Spaces</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="4_Violations_Manager.html">
+                    <span class="material-symbols-outlined">gavel</span>
+                    <span class="text-sm">Violations</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="5_Reports_Manager.html">
+                    <span class="material-symbols-outlined">bar_chart</span>
+                    <span class="text-sm">Reports</span>
+                </a>
+
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="6_Chat_Driver.html">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                    <span class="text-sm">Chat</span>
+                    <span class="ml-auto bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">2</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-semibold"
+                    href="7_Check_in__CheckOut_Manager.html">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    <span class="text-sm">Check-in / Check-out</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-200 ">
+                <button
+                    class="w-full flex items-center justify-center gap-2 bg-primary text-white py-2 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-all">
+                    <span class="material-symbols-outlined text-sm">support_agent</span>
+                    <span>Support</span>
+                </button>
+            </div>
+        </aside>
+    <!-- END: LeftSidebar -->
+    <!-- BEGIN: MainContent -->
+    <main class="flex-1 ml-72 p-10 flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="mb-10" data-purpose="page-header">
+            <h1 class="text-3xl font-bold text-slate-900 mb-1">Reservation Check-in / Check-out</h1>
+            <p class="text-slate-500">Verify reservation OTP and process vehicle entry or exit.</p>
+        </header>
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+            <!-- Verification Card -->
+            <section class="xl:col-span-5" data-purpose="verification-form-container">
+                <div class="bg-white p-8 rounded-custom card-shadow border border-slate-100 h-full">
+                    <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                        <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        Security Verification
+                    </h2>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2"
+                                for="reservation-id">Reservation ID</label>
+                            <input
+                                class="w-full px-4 py-3 rounded-custom border-slate-200 focus:ring-primary focus:border-primary"
+                                id="reservation-id" placeholder="e.g. RES-99812" type="text" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2" for="otp-code">OTP Code
+                                (6-digit)</label>
+                            <div class="flex gap-2 justify-between" id="otp-input-group">
+                                <input
+                                    class="w-12 h-14 text-center text-xl font-bold border-2 border-slate-200 rounded-custom focus:border-primary focus:ring-0"
+                                    maxlength="1" type="text" />
+                                <input
+                                    class="w-12 h-14 text-center text-xl font-bold border-2 border-slate-200 rounded-custom focus:border-primary focus:ring-0"
+                                    maxlength="1" type="text" />
+                                <input
+                                    class="w-12 h-14 text-center text-xl font-bold border-2 border-slate-200 rounded-custom focus:border-primary focus:ring-0"
+                                    maxlength="1" type="text" />
+                                <input
+                                    class="w-12 h-14 text-center text-xl font-bold border-2 border-slate-200 rounded-custom focus:border-primary focus:ring-0"
+                                    maxlength="1" type="text" />
+                                <input
+                                    class="w-12 h-14 text-center text-xl font-bold border-2 border-slate-200 rounded-custom focus:border-primary focus:ring-0"
+                                    maxlength="1" type="text" />
+                                <input
+                                    class="w-12 h-14 text-center text-xl font-bold border-2 border-slate-200 rounded-custom focus:border-primary focus:ring-0"
+                                    maxlength="1" type="text" />
+                            </div>
+                        </div>
+                        <button
+                            class="w-full bg-primary hover:bg-blue-900 text-white font-bold py-4 rounded-custom transition shadow-lg flex items-center justify-center gap-2"
+                            type="button">
+                            Verify OTP
+                        </button>
+                        <!-- Success Message (Visible after verification) -->
+                        <div
+                            class="p-3 bg-emerald-50 border border-emerald-200 rounded-custom flex items-center gap-2 text-secondary text-sm font-medium">
+                            <svg class="h-5 w-5" fill="currentColor" viewbox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    fill-rule="evenodd"></path>
+                            </svg>
+                            OTP verified successfully.
+                        </div>
+                    </form>
+                </div>
+            </section>
+            <!-- Details Panel -->
+            <section class="xl:col-span-7" data-purpose="reservation-details-panel">
+                <div class="bg-white p-8 rounded-custom card-shadow border border-slate-100 h-full">
+                    <div class="flex justify-between items-start mb-8">
+                        <h2 class="text-xl font-bold">Reservation Details</h2>
+                        <span
+                            class="px-3 py-1 bg-emerald-100 text-secondary text-xs font-bold uppercase tracking-wider rounded-full">Status:
+                            Active</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-8 gap-x-4 mb-10">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-slate-50 rounded-custom text-slate-400">👤</div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase font-bold tracking-tight mb-1">Driver Name
+                                </p>
+                                <p class="text-lg font-semibold text-slate-800">Ahmed Rahman</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-slate-50 rounded-custom text-slate-400">🚗</div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase font-bold tracking-tight mb-1">Vehicle Number
+                                </p>
+                                <p class="text-lg font-semibold text-slate-800">DHK-3456</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-slate-50 rounded-custom text-slate-400">📍</div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase font-bold tracking-tight mb-1">Parking Slot
+                                </p>
+                                <p class="text-lg font-semibold text-primary font-bold">A12</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-slate-50 rounded-custom text-slate-400">🕒</div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase font-bold tracking-tight mb-1">Reservation
+                                    Time</p>
+                                <p class="text-lg font-semibold text-slate-800">2:00 PM – 4:00 PM</p>
+                            </div>
+                        </div>
+                        <div class="col-span-2 flex items-start gap-4 pt-4 border-t border-slate-50">
+                            <div class="p-3 bg-slate-50 rounded-custom text-slate-400">🏢</div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase font-bold tracking-tight mb-1">Parking
+                                    Location</p>
+                                <p class="text-lg font-semibold text-slate-800">City Center Parking - Level 2, Zone A
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="flex gap-4">
+                        <button
+                            class="flex-1 bg-secondary hover:bg-emerald-600 text-white font-bold py-4 rounded-custom transition shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                            <svg class="h-5 w-5" fill="currentColor" viewbox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                    d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                                    fill-rule="evenodd"></path>
+                            </svg>
+                            Check-in Vehicle
+                        </button>
+                        <button
+                            class="flex-1 bg-cta hover:bg-orange-600 text-white font-bold py-4 rounded-custom transition shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                            <svg class="h-5 w-5" fill="currentColor" viewbox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                    d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm14 11a1 1 0 11-2 0V6a1 1 0 112 0v8zM7.707 6.707a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L6.414 10H14a1 1 0 100-2H6.414l1.293-1.293z"
+                                    fill-rule="evenodd"></path>
+                            </svg>
+                            Check-out Vehicle
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Footer -->
+        <footer class="mt-auto pt-10 pb-6 border-t border-slate-200 text-center text-slate-400 text-sm"
+            data-purpose="page-footer">
+            Smart Parking Reservation &amp; Vehicle Management System – Manager Panel © 2023
+        </footer>
+    </main>
+    <!-- END: MainContent -->
+    <script data-purpose="otp-input-logic">
+        // Simple logic to move focus in OTP boxes
+        const otpInputs = document.querySelectorAll('#otp-input-group input');
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('keyup', (e) => {
+                if (e.key >= 0 && e.key <= 9) {
+                    if (index < otpInputs.length - 1) otpInputs[index + 1].focus();
+                } else if (e.key === 'Backspace') {
+                    if (index > 0) otpInputs[index - 1].focus();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SmartParking - Real-Time Parking Solutions</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1e3b8a",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "white",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .map-gradient {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(30, 59, 138, 0.05) 100%);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light text-slate-900 font-display">
+    <!-- Navigation Bar -->
+    <nav
+        class="sticky top-0 z-50 w-full bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-[1440px] mx-auto px-6 h-24 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-primary text-white p-1.5 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-2xl">local_parking</span>
+                </div>
+                <span class="text-xl font-extrabold tracking-tight text-primary">SmartParking</span>
+            </div>
+            <div class="hidden md:flex items-center gap-10">
+                <a class="text-base font-bold  hover:text-primary transition-colors" href="1_Homepage.html">Home</a>
+                <a class="text-base font-bold text-primary" href="2_Parking_Location_Page.html">Locations</a>
+                <a class="text-base font-bold hover:text-primary transition-colors" href="3_Parking_Details_Page.html">Pricing</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <button
+                    class="px-5 py-2 text-sm font-semibold   rounded-lg transition-all border border-[#3b1e8a33] text-[#1e3b8a]">Login</button>
+                <button
+                    class="px-5 py-2 text-sm font-bold text-white bg-primary rounded-lg hover:bg-blue-800 shadow-md shadow-primary/20 transition-all">Sign
+                    Up</button>
+            </div>
+        </div>
+    </nav>
+    <main class="max-w-[1440px] mx-auto px-6 py-8">
+        <!-- Page Header & Search -->
+        <div class="mb-10">
+            <div class="max-w-3xl mb-8">
+                <h1 class="text-4xl font-black tracking-tight mb-3">Find Available Parking Locations</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-lg">Browse premium parking locations and reserve your
+                    secure space in real time across the city.</p>
+            </div>
+            <div
+                class="bg-white p-4 rounded-xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 flex flex-col lg:flex-row gap-4">
+                <div
+                    class="flex-1 flex items-center bg-slate-50 rounded-lg px-4 border border-slate-200">
+                    <span class="material-symbols-outlined text-slate-400 mr-2">search</span>
+                    <input class="w-full bg-transparent border-none focus:ring-0 py-3 text-sm"
+                        placeholder="Search by city, street, or landmark" type="text" />
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button
+                        class="flex items-center gap-2 px-4 py-3 bg-slate-50 border border-slate-200  rounded-lg text-sm font-medium">
+                        <span class="material-symbols-outlined text-primary text-sm">location_on</span>
+                        Location
+                        <span class="material-symbols-outlined text-slate-400 text-sm">expand_more</span>
+                    </button>
+                    <button
+                        class="flex items-center gap-2 px-4 py-3 bg-slate-50 border border-slate-200  rounded-lg text-sm font-medium">
+                        <span class="material-symbols-outlined text-primary text-sm">payments</span>
+                        Price Range
+                        <span class="material-symbols-outlined text-slate-400 text-sm">expand_more</span>
+                    </button>
+                    <button
+                        class="flex items-center gap-2 px-4 py-3 bg-slate-50 border border-slate-200  rounded-lg text-sm font-medium">
+                        <span class="material-symbols-outlined text-primary text-sm">event_available</span>
+                        Availability
+                        <span class="material-symbols-outlined text-slate-400 text-sm">expand_more</span>
+                    </button>
+                    <button
+                        class="px-8 py-3 bg-primary text-white font-bold rounded-lg hover:brightness-110 transition-all">Search</button>
+                </div>
+            </div>
+        </div>
+        <!-- Dashboard Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div
+                class="bg-white p-6 rounded-xl border border-slate-100  shadow-sm flex items-center gap-5">
+                <div class="size-14 bg-primary/10 rounded-full flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-3xl">map</span>
+                </div>
+                <div>
+                    <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Total Locations</p>
+                    <p class="text-3xl font-black text-primary">12</p>
+                </div>
+            </div>
+            <div
+                class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center gap-5">
+                <div class="size-14 bg-emerald-100 rounded-full flex items-center justify-center">
+                    <span class="material-symbols-outlined text-emerald-600 text-3xl">directions_car</span>
+                </div>
+                <div>
+                    <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Available Spaces</p>
+                    <p class="text-3xl font-black text-primary">245</p>
+                </div>
+            </div>
+            <div
+                class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm flex items-center gap-5">
+                <div class="size-14 bg-blue-100 rounded-full flex items-center justify-center">
+                    <span class="material-symbols-outlined text-blue-600 text-3xl">bookmark_added</span>
+                </div>
+                <div>
+                    <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Active Reservations</p>
+                    <p class="text-3xl font-black text-primary">67</p>
+                </div>
+            </div>
+        </div>
+        <!-- Interactive Map Section -->
+        <div
+            class="w-full h-[500px] rounded-2xl overflow-hidden relative shadow-2xl mb-16 bg-slate-200">
+            <div class="absolute inset-0 bg-cover bg-center" data-alt="High detail street map of a city with markers"
+                data-location="New York City"
+                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAVAOGjSC7dEWI9Jx0Og0yWHCkcb3EvKLTi9rXvFto-lWcoM7lV8VOAQSBz3uG1UILh9r71mE_RjHpDZmtcJu-bx4k8LKXYKnVk0f49HLYDjJOmp1YUZKlW_4vqEiGyqaVVdkisteBon7WS8CLAarzVeH_S3vu0jt0u0INLcp5WcLjsG8Q2ufhfs2D7qFAGYCnvBPVV-lZ3FwdU4PxiCGPY7NEtdlcfPo9kJ5VlQy9I9BieU53Zo-euUaJufSf9elLEc4HNcmOtBuM')">
+                <!-- Map UI Elements -->
+                <div class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
+                <!-- Markers -->
+                <div class="absolute top-1/4 left-1/3 group cursor-pointer">
+                    <div
+                        class="bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 border-2 border-white transform hover:scale-110 transition-transform">
+                        $2/hr <span class="size-2 bg-white rounded-full animate-pulse"></span>
+                    </div>
+                </div>
+                <div class="absolute top-1/2 left-1/2 group cursor-pointer">
+                    <div
+                        class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 border-2 border-white transform hover:scale-110 transition-transform">
+                        Full
+                    </div>
+                </div>
+                <div class="absolute bottom-1/4 right-1/4 group cursor-pointer">
+                    <div
+                        class="bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 border-2 border-white transform hover:scale-110 transition-transform">
+                        $3/hr <span class="size-2 bg-white rounded-full animate-pulse"></span>
+                    </div>
+                </div>text-3xl 
+                <!-- Map Controls -->
+                <div class="absolute top-6 right-6 flex flex-col gap-2">
+                    <button
+                        class="size-10 bg-white rounded-lg shadow-lg flex items-center justify-center hover:bg-slate-50">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                    <button
+                        class="size-10 bg-white rounded-lg shadow-lg flex items-center justify-center hover:bg-slate-50">
+                        <span class="material-symbols-outlined">remove</span>
+                    </button>
+                    <button
+                        class="size-10 bg-white rounded-lg shadow-lg flex items-center justify-center hover:bg-slate-50 mt-4">
+                        <span class="material-symbols-outlined">my_location</span>
+                    </button>
+                </div>
+                <!-- Legend -->
+                <div
+                    class="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm p-4 rounded-xl shadow-xl border border-slate-100 dark:border-slate-800">
+                    <h4 class="text-xs font-black uppercase tracking-widest text-slate-500 mb-3">Map Legend</h4>
+                    <div class="flex flex-col gap-2">
+                        <div class="flex items-center gap-2 text-sm font-semibold">
+                            <span class="size-3 bg-emerald-500 rounded-full"></span> Available Spaces
+                        </div>
+                        <div class="flex items-center gap-2 text-sm font-semibold">
+                            <span class="size-3 bg-red-500 rounded-full"></span> No Vacancy
+                        </div>
+                        <div class="flex items-center gap-2 text-sm font-semibold">
+                            <span class="size-3 bg-primary rounded-full"></span> Premium Reserved
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Parking Locations List -->
+        <div class="mb-20">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-black">Featured Locations</h2>
+                <div class="flex gap-2">
+                    <button class="p-2 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"><span
+                            class="material-symbols-outlined">grid_view</span></button>
+                    <button class="p-2 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"><span
+                            class="material-symbols-outlined">format_list_bulleted</span></button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div
+                    class="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1">
+                    <div class="relative h-56 overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            data-alt="Modern concrete parking garage interior"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0LvnZnCgmr1b99puQgnTZ4233OcwORS7FYafrgRIVMl-LRYNerMvzKmt069lp6G5dvt7bmjlWEKb7cyz0XATGPN9qyrX0khvDnbpoC80djkeFxbS40pHVuB3omDD6wQvQ-LXHCGGxy-bEAAmC1QB-SaCH87MdH1Ssvsu7knZmKejjj0Ay4zzAazXImsCoTNDAKIWD2Z5kGbo0EcrBrQsAz7tkqsyji1vv0B-zPa-WQUKouNX91NCGAHNmEeDtEFzqEEpEunOcvTQ" />
+                        <div class="absolute top-4 left-4">
+                            <span
+                                class="bg-emerald-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-lg">Open
+                                Now</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                            <p class="text-white text-lg font-bold">City Center Parking</p>
+                            <p class="text-white/80 text-xs flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[14px]">location_on</span> 124 Main St,
+                                Downtown</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-end mb-6">
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Price</p>
+                                <p class="text-2xl font-black text-primary">$2.50<span
+                                        class="text-sm font-normal text-slate-500">/hour</span></p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Available</p>
+                                <p class="text-xl font-black text-emerald-500">32<span
+                                        class="text-sm font-normal text-slate-500"> / 80</span></p>
+                            </div>
+                        </div>
+                        <div class="w-full h-2 bg-slate-100 rounded-full mb-6 overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full"
+                                style="width: 40%"></div>
+                        </div>
+                        <button
+                            class="w-full py-3 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold rounded-xl hover:bg-primary hover:text-white transition-all">View
+                            Details</button>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div
+                    class="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1">
+                    <div class="relative h-56 overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            data-alt="Multi-level parking structure"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuDmAKU306KKI18X7p0L_jGgRKq6bC_1niGHBwMp7j8_sKcmKLSaZij1gchM1ifKBCd3C9YQJp5m9zkrXy_-fzXh6DY8g-5R3_-sC4JzlYz0f2kCKvy2rveBqxU0mTr_dQjKhqOyx0PGkuWfDASkBdWFJDWIwWq6zcOlX2slVmcD8H6rDRoQ3ozoK-MJpLzj_CymOdMSKeX2lv_B3UuFaV4v90-cRuqDgq2kNAEJjUeUcH34WQcxIvfxabqW8SXy9CJy8qdKfhM2o" />
+                        <div class="absolute top-4 left-4">
+                            <span
+                                class="bg-red-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-lg">Almost
+                                Full</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                            <p class="text-white text-lg font-bold">Harbor Plaza Deck</p>
+                            <p class="text-white/80 text-xs flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[14px]">location_on</span> 45 Water St,
+                                Waterfront</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-end mb-6">
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Price</p>
+                                <p class="text-2xl font-black text-primary">$4.00<span
+                                        class="text-sm font-normal text-slate-500">/hour</span></p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Available</p>
+                                <p class="text-xl font-black text-red-500">5<span
+                                        class="text-sm font-normal text-slate-500"> / 120</span></p>
+                            </div>
+                        </div>
+                        <div class="w-full h-2 bg-slate-100  rounded-full mb-6 overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-red-400 to-red-600 rounded-full"
+                                style="width: 95%"></div>
+                        </div>
+                        <button
+                            class="w-full py-3 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold rounded-xl hover:bg-primary hover:text-white transition-all">View
+                            Details</button>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div
+                    class="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1">
+                    <div class="relative h-56 overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            data-alt="Underground urban parking garage"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXOPBwAun6_n4aUQHHah8sJ37f-mc2PzrIGBF4d-GPOPkak4CPRY5IXLvBoGv0aaqpRHmcji1XNboeNc4SN81meRF9rHmzCr5eptRO4s3VFGP0_pKISh_G0hCBKxZ32kcXFLZLDhE212ejx2gJFEKOL3OSBjNa7S25AcWGQkQisiUKNpkzfrXJWv-qCXgSriAW3-d1gcLUQMOVe9Es_JrRYUxXKzbpgXGndtUZ9hrw8ei8MUxwqG9hqRD7dTyybRxxMbGUVXyT2fQ" />
+                        <div class="absolute top-4 left-4">
+                            <span
+                                class="bg-emerald-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-lg">Low
+                                Rate</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                            <p class="text-white text-lg font-bold">Midtown Smart Lot</p>
+                            <p class="text-white/80 text-xs flex items-center gap-1"><span
+                                    class="material-symbols-outlined text-[14px]">location_on</span> 890 2nd Ave,
+                                Midtown</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-end mb-6">
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Price</p>
+                                <p class="text-2xl font-black text-primary">$1.75<span
+                                        class="text-sm font-normal text-slate-500">/hour</span></p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Available</p>
+                                <p class="text-xl font-black text-emerald-500">48<span
+                                        class="text-sm font-normal text-slate-500"> / 60</span></p>
+                            </div>
+                        </div>
+                        <div class="w-full h-2 bg-slate-100 rounded-full mb-6 overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full"
+                                style="width: 20%"></div>
+                        </div>
+                        <button
+                            class="w-full py-3 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold rounded-xl hover:bg-primary hover:text-white transition-all">View
+                            Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CTA Section -->
+        <section class="relative rounded-3xl overflow-hidden mb-20">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary to-blue-600 opacity-90"></div>
+            <img class="absolute inset-0 w-full h-full object-cover" data-alt="Abstract night city lights pattern"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGdQBHVZHax8dJbju3nQt6GwPjVuZ9WHMcK2ee0qlURhKWOBno43J6CPm7pSsmzR6UTx0GMORwa93x3Y6VmO1On2GqXJ4XJDPt35_QtpFXDknKz_KmEWto-JvIhrNcvjD_KNIuASLBVYt-sdA8Hi14qRi7vzlY80r6TwtNQBGY1IkvOM0b_guQrmmjvHDpSj0uX40pAWouGsfPqzmqvzeVoFkHyCseh-YfwwcqjXuaV9i-lzdY0Q5VaRjDDefShqwimCXCBq2QWIs" />
+            <div class="relative px-8 py-16 text-center max-w-2xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-black text-white mb-6 leading-tight">Reserve your parking space
+                    before you arrive.</h2>
+                <p class="text-blue-100 text-lg mb-10">Stop circling the block. Join 10k+ drivers who save time and
+                    money with SmartParking.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button
+                        class="px-8 py-4 bg-white text-primary font-black rounded-xl hover:bg-blue-50 transition-all shadow-xl">Find
+                        Parking Now</button>
+                    <button
+                        class="px-8 py-4 bg-primary/20 backdrop-blur-md border border-white/30 text-white font-black rounded-xl hover:bg-white/20 transition-all">Create
+                        Free Account</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-20">
+        <div class="max-w-[1440px] mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="space-y-6">
+                    <div class="flex items-center gap-2">
+                        <div class="bg-primary text-white p-1.5 rounded-md">
+                            <span class="material-symbols-outlined block text-xl">local_parking</span>
+                        </div>
+                        <span class="text-lg font-bold tracking-tight">SmartParking</span>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                        Revolutionizing urban mobility with AI-powered parking management and seamless reservation
+                        systems.
+                    </p>
+                    <div class="flex gap-4">
+                        <a class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
+                            href="#"><span class="material-symbols-outlined text-lg">public</span></a>
+                        <a class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
+                            href="#"><span class="material-symbols-outlined text-lg">alternate_email</span></a>
+                        <a class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
+                            href="#"><span class="material-symbols-outlined text-lg">smartphone</span></a>
+                    </div>
+                </div>
+                <div>
+                    <h6 class="font-bold mb-6">Company</h6>
+                    <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a class="hover:text-primary" href="#">About Us</a></li>
+                        <li><a class="hover:text-primary" href="#">Careers</a></li>
+                        <li><a class="hover:text-primary" href="#">Press</a></li>
+                        <li><a class="hover:text-primary" href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="font-bold mb-6">Support</h6>
+                    <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a class="hover:text-primary" href="4_Contact&Support.html">Help Center</a></li>
+                        <li><a class="hover:text-primary" href="#">Safety</a></li>
+                        <li><a class="hover:text-primary" href="#">Refund Policy</a></li>
+                        <li><a class="hover:text-primary" href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="font-bold mb-6">Legal</h6>
+                    <ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a class="hover:text-primary" href="#">Privacy Policy</a></li>
+                        <li><a class="hover:text-primary" href="#">Terms of Service</a></li>
+                        <li><a class="hover:text-primary" href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="pt-12 mt-12 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-sm text-slate-500 dark:text-slate-400">© 2026 Smart Parking System. All rights reserved.
+                </p>
+                <div class="flex items-center gap-6">
+                    <span class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400"><span
+                            class="material-symbols-outlined text-sm">language</span> English</span>
+                    <span class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400"><span
+                            class="material-symbols-outlined text-sm">payments</span> USD</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

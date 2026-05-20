@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1e3b8a",
+                        "accent": "#10b981",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "white",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .login-gradient-btn {
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900  font-display min-h-screen flex flex-col">
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-slate-200"
+        data-purpose="main-navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo Section -->
+                <div class="flex items-center gap-2">
+                    <div
+                        class="bg-primary text-white w-10 h-10 flex items-center justify-center rounded font-bold text-xl shadow-md">
+                        P
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-primary">SmartPark</span>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="1_Homepage.html">Home</a>
+                    <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="2_Parking_Location_Page.html">Locations</a>
+                    <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="3_Parking_Details_Page.html">Pricing</a>
+                </div>
+                <!-- Action Buttons -->
+                <div class="flex items-center space-x-4">
+                    <a class="text-slate-600 hover:text-primary font-semibold px-4 py-2" href="#">Login</a>
+                    <a class="bg-primary text-white px-5 py-2 rounded font-semibold hover:bg-blue-900 transition-all shadow-sm"
+    href="#">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Content -->
+    <main class="flex-grow">
+        <!-- Header Section -->
+        <section
+            class="relative py-16 px-6 overflow-hidden bg-white border-b border-slate-100 dark:border-slate-800">
+            <div class="absolute inset-0 opacity-10 pointer-events-none">
+                <div
+                    class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#1e3b8a_1px,transparent_1px)] [background-size:32px_32px]">
+                </div>
+            </div>
+            <div class="max-w-2xl mx-auto text-center relative z-10">
+                <h1 class="text-4xl font-extrabold text-slate-900  mb-4">Login to Your Account</h1>
+                <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                    Access your parking reservations and manage your parking activities in real-time.
+                </p>
+            </div>
+        </section>
+        <!-- Login Card Section -->
+        <section class="py-12 px-6">
+            <div class="max-w-[480px] mx-auto">
+                <div
+                    class="bg-white p-8 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 dark:border-slate-800">
+                    <!-- Error Message Example -->
+                    <div
+                        class="mb-6 flex items-center gap-3 p-3 bg-red-50  border border-red-100 dark:border-red-900/30 rounded-lg text-red-600 dark:text-red-400 text-sm">
+                        <span class="material-symbols-outlined text-lg">error</span>
+                        <p>Invalid email or password. Please try again.</p>
+                    </div>
+                    <form class="space-y-5">
+                        <!-- Email Field -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Email
+                                Address</label>
+                            <div class="relative group">
+                                <span
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">mail</span>
+                                <input
+                                    class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-slate-400"
+                                    placeholder="name@company.com" type="email" />
+                            </div>
+                        </div>
+                        <!-- Password Field -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center px-1">
+                                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Password</label>
+                                <a class="text-xs font-semibold text-primary hover:underline" href="#">Forgot
+                                    Password?</a>
+                            </div>
+                            <div class="relative group">
+                                <span
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">lock</span>
+                                <input
+                                    class="w-full pl-12 pr-12 py-3.5 bg-slate-50 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-slate-400"
+                                    placeholder="••••••••" type="password" />
+                                <button
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                                    type="button">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Login Button -->
+                        <button
+                            class="login-gradient-btn w-full py-4 rounded-xl text-white font-bold text-lg shadow-lg shadow-primary/20 hover:opacity-90 active:scale-[0.98] transition-all mt-4"
+                            type="submit">
+                            Login
+                        </button>
+                        <div class="pt-4 text-center">
+                            <p class="text-sm text-slate-500 dark:text-slate-400">
+                                Don't have an account?
+                                <a class="text-primary font-bold hover:underline ml-1" href="#">Sign Up</a>
+                            </p>
+                        </div>
+                    </form>
+                    <!-- Divider -->
+                    <div class="relative my-8">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-slate-100 "></div>
+                        </div>
+                        <div class="relative flex justify-center text-xs uppercase"><span
+                                class="bg-white px-2 text-slate-400">Quick Login Options</span></div>
+                    </div>
+                    <!-- Social Login -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <button
+                            class="flex items-center justify-center gap-2 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                            <img alt="Google" class="w-5 h-5" data-alt="Google logo icon"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkBMMugSLExNSAj9HYcp0qL894homgvGBJ2xR7ZDC_FaxAjlcDYzxjcy5IaUTya5VX8gmF_myEgVn8ebaH_fMESwzP6qx3i2I5fEvBXYqwaUK1d4ZLYKw3bXs-ILTzk4ysXjGx4dQeb_m3uhyBuCAq7Fu88pgYUpqydNGcr53BZzxKBEQUDwatu505ypjE81U4nSVPEqipqf0ppMpPw7gPZnlMSkgECDrRFE0d3HUonVgE0kLDCstC0bvqj4Kkvo-b67WsnphBgXw2" />
+                            <span class="text-sm font-medium">Google</span>
+                        </button>
+                        <button
+                            class="flex items-center justify-center gap-2 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                            <img alt="Apple" class="w-5 h-5" data-alt="Apple logo icon"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlQvEGqiYyA0trSKXzuyD3dTFlOBYaveyIDbvfO6rLymhHsKcqbL_u65hmFgJ1JZD9uUmYQ8TCQf2QyojbEw_Vwj95kzrOKVJXYf4W-n2hRHrYUyC0ror63eFrucjDpMj_TQsr011e7XxoV4JRuQ11mzad1KPcMHvHROcSoOFuihXew2Hy4jeCXeCVPQ3sZyKoCJhL9V6ObfB5X4bjBopeElS45gzJSfL7jRYGbqvWdYVG5WMSawgvHGo-mp8bpNvFL6cZ1JJ8oZMf" />
+                            <span class="text-sm font-medium">Apple</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-20 px-6">
+        <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div>
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="bg-primary text-white p-1.5 rounded flex items-center justify-center">
+                        <span class="material-symbols-outlined text-lg">local_parking</span>
+                    </div>
+                    <span class="text-lg font-bold text-white tracking-tight">Smart Parking</span>
+                </div>
+                <p class="text-sm leading-relaxed text-slate-400">
+                    The next generation of vehicle management and parking reservation systems for smart cities.
+                </p>
+                <div class="flex gap-4 mt-8">
+                    <a class="text-slate-400 hover:text-white transition-colors" href="#">
+                        <svg class="size-5 fill-current" viewbox="0 0 24 24">
+                            <path
+                                d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z">
+                            </path>
+                        </svg>
+                    </a>
+                    <a class="text-slate-400 hover:text-white transition-colors" href="#">
+                        <svg class="size-5 fill-current" viewbox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Company</h4>
+                <ul class="space-y-4 text-sm">
+                    <li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Our Locations</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Pricing Plans</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Support</h4>
+                <ul class="space-y-4 text-sm">
+                    <li><a class="hover:text-primary transition-colors">Contact Support</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Community Forum</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Status Page</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Resources</h4>
+                <ul class="space-y-4 text-sm">
+                    <li><a class="hover:text-primary transition-colors" href="#">Documentation</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">System Guide</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">API Reference</a></li>
+                    <li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="max-w-[1440px] mx-auto mt-20 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-slate-500">© 2026 Smart Parking System. All rights reserved.</p>
+            <div class="flex gap-8 text-xs text-slate-500">
+                <a class="hover:text-slate-300 transition-colors" href="#">Terms of Service</a>
+                <a class="hover:text-slate-300 transition-colors" href="#">Cookies Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

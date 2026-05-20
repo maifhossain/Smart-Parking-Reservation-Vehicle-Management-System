@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Parking Locations Management | Smart Parking Admin</title>
+  <!-- BEGIN: Scripts and Fonts -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1e3b8a', // Custom Color from Theme
+            secondary: '#10B981', // Emerald Green accent
+            background: '#F8FAFC', // Light Gray background
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            'custom': '8px', // ROUND_EIGHT from Theme
+          }
+        }
+      }
+    }
+  </script>
+  <!-- END: Scripts and Fonts -->
+  <style data-purpose="custom-layout">
+    body {
+      background-color: #F8FAFC;
+    }
+
+    .sidebar-active {
+      background-color: rgba(30, 59, 138, 0.1);
+      border-left: 4px solid #1e3b8a;
+    }
+
+    .gradient-btn {
+      background: linear-gradient(135deg, #1e3b8a 0%, #10B981 100%);
+    }
+
+    .table-row-hover:hover {
+      background-color: #F1F5F9;
+    }
+  </style>
+</head>
+
+<body class="font-sans text-slate-900">
+  <!-- BEGIN: Dashboard Wrapper -->
+  <div class="flex min-h-screen">
+    <!-- BEGIN: Sidebar Navigation -->
+    <aside
+            class="w-72 bg-white  border-r border-slate-200  flex flex-col shrink-0">
+            <div class="p-6 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">local_parking</span>
+                </div>
+                <div>
+                    <h1 class="text-primary font-bold text-lg leading-tight">Smart Parking</h1>
+                    <p class="text-slate-500 text-xs font-medium">Admin Management</p>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="1_Admin_Dashboard.html">
+                    <span class="material-symbols-outlined text-[22px]">dashboard</span>
+                    <span class="text-sm font-medium">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="2_Parking_Manager.html">
+                    <span class="material-symbols-outlined text-[22px]">manage_accounts</span>
+                    <span class="text-sm font-medium">Parking Managers</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary transition-colors"
+                    href="3_Parking_Locations.html">
+                    <span class="material-symbols-outlined text-[22px]">location_on</span>
+                    <span class="text-sm font-medium">Parking Locations</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="4_Drivers_Approval.html">
+                    <span class="material-symbols-outlined text-[22px]"
+                        style="font-variation-settings: 'FILL' 1">verified_user</span>
+                    <span class="text-sm font-semibold">Drivers Approval</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="5_Pricing_Rules.html">
+                    <span class="material-symbols-outlined text-[22px]">payments</span>
+                    <span class="text-sm font-medium">Pricing Rules</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="6.1_Violations_AdminPart.html">
+                    <span class="material-symbols-outlined text-[22px]">report_problem</span>
+                    <span class="text-sm font-medium">Violations</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-500 transition-colors"
+                    href="7_Reports_AdminPart.html">
+                    <span class="material-symbols-outlined text-[22px]">bar_chart</span>
+                    <span class="text-sm font-medium">Reports</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-200 ">
+                <div class="flex items-center gap-3 p-2">
+                    <div class="w-8 h-8 rounded-full bg-slate-200  overflow-hidden">
+                        <img alt="Admin Avatar" data-alt="Profile picture of the system administrator"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOshUztbYmBfZEQzcpVwqeyDVJhjXaLHQgOZKojCc0RN3hO421Wt7LVRJGmmb8_Ahg8oqyp3r3ICjJUvyUeIKgjdUoyDXN85JaubDz3SMk40NWRSih6I7UQ5Z0H9F99aSs2D4VpFrvDhhB9ApFdLnWxpm83dlDLH9rElJZMLDLOOrdEKCDy7my-xPXNHfDQiNS8RsE53Cc72BxeSc1c3hOBjnjBmgnwYEmRjZJUXXUcWqk1hrTHflykIo7gANnMhf4NPTK1RdVk4IQ" />
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium truncate">System Admin</p>
+                        <p class="text-xs text-slate-500 truncate">admin@smartparking.io</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    <!-- END: Sidebar Navigation -->
+    <!-- BEGIN: Main Content Area -->
+    <main class="flex-1 p-8 flex flex-col min-h-screen">
+      <!-- BEGIN: Content Header -->
+      <header class="flex justify-between items-center mb-8" data-purpose="header">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Parking Locations Management</h1>
+          <p class="text-slate-500 mt-1">Manage parking areas, total spaces, and pricing information.</p>
+        </div>
+        <button
+          class="gradient-btn text-white px-6 py-2.5 rounded-custom font-semibold flex items-center gap-2 shadow-lg shadow-blue-900/10 hover:opacity-90 transition-opacity">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path d="M12 6v6m0 0v6m0-6h6m-6 0H6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+          Add Location
+        </button>
+      </header>
+      <!-- END: Content Header -->
+      <!-- BEGIN: Table Section -->
+      <section class="bg-white rounded-custom border border-slate-200 shadow-sm flex-1 overflow-hidden"
+        data-purpose="locations-table-card">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse" id="pricing-table">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200">
+                <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Location</th>
+                <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Status</th>
+                <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Spaces</th>
+                <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Price (per hour)
+                </th>
+                <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider text-right">Action
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <!-- Location Row 1 -->
+              <tr class="table-row-hover transition-colors">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="p-2 bg-blue-50 text-primary rounded-custom">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path
+                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                          stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-semibold text-slate-800">Downtown Parking</p>
+                      <p class="text-xs text-slate-400">123 Main St, Central District</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <span
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                    Active
+                  </span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="text-slate-700 font-medium">120</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="text-primary font-bold">$3.00/hr</span>
+                </td>
+                <td class="px-6 py-4 text-right space-x-2">
+                  <button class="p-2 text-slate-400 hover:text-primary transition-colors" title="Edit">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                  <button class="p-2 text-slate-400 hover:text-red-500 transition-colors" title="Remove">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              <!-- Location Row 2 -->
+              <tr class="table-row-hover transition-colors">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="p-2 bg-blue-50 text-primary rounded-custom">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path
+                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                          stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-semibold text-slate-800">City Mall Parking</p>
+                      <p class="text-xs text-slate-400">45 Commerce Blvd</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <span
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                    Active
+                  </span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="text-slate-700 font-medium">80</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="text-primary font-bold">$2.50/hr</span>
+                </td>
+                <td class="px-6 py-4 text-right space-x-2">
+                  <button class="p-2 text-slate-400 hover:text-primary transition-colors" title="Edit">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                  <button class="p-2 text-slate-400 hover:text-red-500 transition-colors" title="Remove">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              <!-- Location Row 3 -->
+              <tr class="table-row-hover transition-colors">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="p-2 bg-blue-50 text-primary rounded-custom">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path
+                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                          stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-semibold text-slate-800">Tech Park North</p>
+                      <p class="text-xs text-slate-400">89 Innovation Way</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <span
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                    Active
+                  </span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="text-slate-700 font-medium">200</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="text-primary font-bold">$4.00/hr</span>
+                </td>
+                <td class="px-6 py-4 text-right space-x-2">
+                  <button class="p-2 text-slate-400 hover:text-primary transition-colors" title="Edit">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                  <button class="p-2 text-slate-400 hover:text-red-500 transition-colors" title="Remove">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+              <!-- Location Row 4 -->
+              <tr class="table-row-hover transition-colors">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="p-2 bg-blue-50 text-primary rounded-custom">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path
+                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                          stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-semibold text-slate-800">East Gate Annex</p>
+                      <p class="text-xs text-slate-400">12 Sunrise Court</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <span
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                    Active
+                  </span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="text-slate-700 font-medium">60</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="text-primary font-bold">$2.00/hr</span>
+                </td>
+                <td class="px-6 py-4 text-right space-x-2">
+                  <button class="p-2 text-slate-400 hover:text-primary transition-colors" title="Edit">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                  <button class="p-2 text-slate-400 hover:text-red-500 transition-colors" title="Remove">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Table Pagination Placeholder -->
+        <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-between items-center">
+          <span class="text-xs text-slate-500">Showing 1 to 4 of 4 results</span>
+          <div class="flex gap-2">
+            <button
+              class="px-3 py-1 text-xs border border-slate-300 rounded-custom text-slate-400 cursor-not-allowed">Previous</button>
+            <button
+              class="px-3 py-1 text-xs border border-slate-300 rounded-custom text-slate-600 bg-white">Next</button>
+          </div>
+        </div>
+      </section>
+      <!-- END: Table Section -->
+      <!-- BEGIN: Footer -->
+      <footer class="mt-auto pt-8 border-t border-slate-200 text-center">
+        <p class="text-sm text-slate-400">Smart Parking Reservation &amp; Vehicle Management System – Admin Panel</p>
+        <p class="text-xs text-slate-300 mt-1">© 2023 SmartPark Inc. All rights reserved.</p>
+      </footer>
+      <!-- END: Footer -->
+    </main>
+    <!-- END: Main Content Area -->
+  </div>
+  <!-- END: Dashboard Wrapper -->
+</body>
+
+</html>

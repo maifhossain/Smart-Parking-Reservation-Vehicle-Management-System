@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Parking Reservation | Smart Parking System</title>
+    <!-- Tailwind CSS v3 CDN with plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3b8a', // Deep Blue based on THEME_2 custom_color
+                        accent: '#F59E0B',  // Soft Orange
+                        success: '#10B981', // Emerald Green
+                        background: '#F8FAFC' // Light Gray
+                    },
+                    borderRadius: {
+                        'twelve': '12px', // custom roundness based on THEME_2
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style data-purpose="custom-animations">
+        .card-hover {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="flex min-h-screen bg-background">
+    <!-- BEGIN: LeftSidebar -->
+    <aside class="w-72 bg-white border-r border-slate-200 flex flex-col min-h-screen sticky top-0">
+            <div class="p-8">
+                <div class="flex items-center gap-3 mb-10">
+                    <div class="bg-primary rounded-xl p-2 text-white">
+                        <span class="material-symbols-outlined text-2xl">local_parking</span>
+                    </div>
+                    <div>
+                        <h1 class="text-primary font-bold text-lg leading-tight">Smart Parking</h1>
+                        <p class="text-slate-500 text-xs font-medium uppercase tracking-wider">Driver Panel</p>
+                    </div>
+                </div>
+                <nav class="flex flex-col gap-2">
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
+                        href="1_Driver_Dashboard.html">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <span class="font-medium">Dashboard</span>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all"
+                        href="2.1_Reserve_Parking.html">
+                        <span
+                            class="material-symbols-outlined text-slate-400 group-hover:text-primary">add_circle</span>
+                        <span class="font-medium">Reserve Parking</span>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
+                        href="3_History_Driver.html">
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">history</span>
+                        <span class="font-medium">History</span>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
+                        href="4.1_Report_Issue_1_Driver.html">
+                        <span
+                            class="material-symbols-outlined text-slate-400 group-hover:text-primary">report_problem</span>
+                        <span class="font-medium">Report Issue</span>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
+                        href="5_Chat_Driver.html">
+                        <span
+                            class="material-symbols-outlined text-slate-400 group-hover:text-primary">chat_bubble</span>
+                        <span class="font-medium">Support Chat</span>
+                    </a>
+                </nav>
+            </div>
+            <div class="mt-auto p-8 border-t border-slate-100 shrink-0">
+                <div class="flex items-center gap-3">
+                    <img alt="Profile" class="w-10 h-10 rounded-full object-cover"
+                        data-alt="Professional driver profile photo portrait"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp8iXIrOXCHI83d1Z0wnGiJ1CH8v7uVLdaX6zlW-OrNKzhUZ9CrXTe3zeE6COsVyvy48W3vQx0SzsfledeBEoszaQJWbgEVUvt1K67dpmfJrQ_kpLs7meaCoYcjHq5KOQ1_Ug2LmQvvdS8zfkg4mWgPukpjZ9Pf8Bf9_B3cyX1uLN_iE61-l0FZCyxPog3LON4EGQe1TydAMV0_5hbSGMXd0jVzlbG7FCvkE9Xg7jDm8nor0KV87f3iCenvT3JcwmWfmEokryJs8Uh" />
+                    <div>
+                        <p class="text-sm font-semibold text-slate-900">Alex Johnson</p>
+                        <p class="text-xs text-slate-500">Gold Member</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    <!-- END: LeftSidebar -->
+    <!-- BEGIN: MainContent -->
+    <main class="flex-1 flex flex-col min-h-screen">
+        <!-- BEGIN: Header -->
+        <header class="bg-white border-b border-slate-200 px-8 py-6 sticky top-0 z-10" data-purpose="main-header">
+            <div class="flex justify-between items-center max-w-7xl mx-auto">
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-900">Parking Reservation</h1>
+                    <p class="text-slate-500 text-sm mt-1">Search and reserve your parking space easily.</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="relative p-2 text-slate-400 hover:text-primary transition-colors">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <!-- END: Header -->
+        <!-- BEGIN: ContentArea -->
+        <section class="p-8 max-w-7xl mx-auto w-full flex-1">
+            <!-- BEGIN: FiltersSection -->
+            <div class="mb-10" data-purpose="search-filters">
+                <div
+                    class="bg-white p-6 rounded-twelve shadow-sm border border-slate-100 grid grid-cols-1 md:grid-cols-4 gap-6 items-end card-hover">
+                    <div class="space-y-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Location</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                </svg>
+                            </span>
+                            <input
+                                class="block w-full pl-10 border-slate-200 rounded-lg focus:ring-primary focus:border-primary text-sm"
+                                placeholder="Select City/Area" type="text" />
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Date</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                </svg>
+                            </span>
+                            <input
+                                class="block w-full pl-10 border-slate-200 rounded-lg focus:ring-primary focus:border-primary text-sm"
+                                type="date" />
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Time Slot</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2"></path>
+                                </svg>
+                            </span>
+                            <select
+                                class="block w-full pl-10 border-slate-200 rounded-lg focus:ring-primary focus:border-primary text-sm appearance-none">
+                                <option>09:00 AM - 12:00 PM</option>
+                                <option>12:00 PM - 03:00 PM</option>
+                                <option>03:00 PM - 06:00 PM</option>
+                                <option>06:00 PM - 09:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <button
+                            class="w-full bg-accent hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-twelve shadow-lg shadow-orange-500/30 transition-all active:scale-95">
+                            Search Spaces
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- END: FiltersSection -->
+            <!-- BEGIN: ResultsSection -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-purpose="parking-grid">
+                <!-- Card 1 -->
+                <div
+                    class="bg-white rounded-twelve overflow-hidden shadow-sm border border-slate-100 card-hover flex flex-col">
+                    <div class="h-48 bg-slate-100 relative">
+                        <img alt="Parking" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDazZDMSXke41c04GscyrFCZNA7ZYaQ_AdzKcOu-wXfw_61rgSQtJGrO7jq-pp7-wAtl6c72zyV6OM4MVI9oqd1lSse--XjDAI2FdckTl6kxzo70NO4KX7hMsAaF_w44P9vx3MGdJwndNIrRyDdqxuqTmC_37ITFj-JAaOj5zJj-L1DuoS0ObCx41kxuBLnFuuyRzdEO4uDuQEVS0oao8sSsn8g1yM1jdfGErgUc3S8zu6PBgpiOQf6Q0vNcso8G4VzbP4F-dJ2Vo" />
+                        <div
+                            class="absolute top-4 right-4 bg-success/10 text-success text-xs font-bold px-3 py-1 rounded-full border border-success/20">
+                            12 Spaces Available
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-bold text-lg text-slate-900 leading-tight">Grand Central Parking</h3>
+                                <p class="text-sm text-slate-500 flex items-center gap-1 mt-1">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                    </svg>
+                                    Downtown District, Block A
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-auto pt-6 border-t border-slate-50 flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-slate-900">$4.50</span>
+                                <span class="text-xs text-slate-400">/ hour</span>
+                            </div>
+                            <button
+                                class="bg-accent hover:bg-orange-600 text-white text-sm font-bold px-5 py-2.5 rounded-twelve shadow-md shadow-orange-500/20 transition-all" onclick="window.location.href='2.2_Reservation_Confirmation_Driver.html'">
+                                Reserve
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div
+                    class="bg-white rounded-twelve overflow-hidden shadow-sm border border-slate-100 card-hover flex flex-col">
+                    <div class="h-48 bg-slate-100 relative">
+                        <img alt="Parking" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuMI1xD8EPNuz991VKOTy1p42x4tzlcsGj6LNs7BeC173Nbbj0WgDBjtmJj8UYwzRB5zUoZn7VOtycBPBoQYJonWMvQWAq0XVhDVi4I8PKaToR28tNPnHJJTvcxcVltAFmjBnTPwmWK4IDjohf8yWCdQnC366UdwCJzw9GX-KTZcyC5nuPkd2VBlbzw85dXqVGpxQ23G4GbGDBFyQUUFN58Kjp9XkKCYMisxhmprOPaF6DErpiPNoVAjOAVyzmTKw0Z20LEXyBaYc" />
+                        <div
+                            class="absolute top-4 right-4 bg-success/10 text-success text-xs font-bold px-3 py-1 rounded-full border border-success/20">
+                            8 Spaces Available
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-bold text-lg text-slate-900 leading-tight">Tech Hub Garage</h3>
+                                <p class="text-sm text-slate-500 flex items-center gap-1 mt-1">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                    </svg>
+                                    Silicon Avenue, North
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-auto pt-6 border-t border-slate-50 flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-slate-900">$3.75</span>
+                                <span class="text-xs text-slate-400">/ hour</span>
+                            </div>
+                            <button
+                                class="bg-accent hover:bg-orange-600 text-white text-sm font-bold px-5 py-2.5 rounded-twelve shadow-md shadow-orange-500/20 transition-all" onclick="window.location.href='2.2_Reservation_Confirmation_Driver.html'">
+                                Reserve
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div
+                    class="bg-white rounded-twelve overflow-hidden shadow-sm border border-slate-100 card-hover flex flex-col">
+                    <div class="h-48 bg-slate-100 relative">
+                        <img alt="Parking" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxtBwGe8mxsws83wDZvpnLmTwZwy-ujvnljmI3CF5iOV3DFyfX7fkul3atpwaXU5e_oIyMTpsHWE1jYKPUx6sHHC5HUDcEz5M_OkKdeCeJJxWgM5q2WpQqIVST5eJ4RZ3GDCXnqke-bBnYwduVvkVY81MdWNb0-q6Tbowhqxa-7IzY9iGgU5hxP_kg5h3qu3JO6DSozXabMstm6jXOVoHbdoLgv1dxHxmcvYJSU6wBBE9FZCfFzkojrewqNJQLXxLiVwbgtPYufbA" />
+                        <div
+                            class="absolute top-4 right-4 bg-success/10 text-success text-xs font-bold px-3 py-1 rounded-full border border-success/20">
+                            42 Spaces Available
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-bold text-lg text-slate-900 leading-tight">Skyline Multi-level</h3>
+                                <p class="text-sm text-slate-500 flex items-center gap-1 mt-1">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                    </svg>
+                                    Business Plaza, South
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-auto pt-6 border-t border-slate-50 flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-slate-900">$5.00</span>
+                                <span class="text-xs text-slate-400">/ hour</span>
+                            </div>
+                            <button
+                                class="bg-accent hover:bg-orange-600 text-white text-sm font-bold px-5 py-2.5 rounded-twelve shadow-md shadow-orange-500/20 transition-all" onclick="window.location.href='2.2_Reservation_Confirmation_Driver.html'">
+                                Reserve
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div
+                    class="bg-white rounded-twelve overflow-hidden shadow-sm border border-slate-100 card-hover flex flex-col">
+                    <div class="h-48 bg-slate-100 relative">
+                        <img alt="Parking" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHhKF38EMynT9jCV_z6--GdYxTjlQbvO0cNENQHwNgbtoLIbMlPyxxDmSOdPteO5mgATLxqBU2Fa9c1PGU79mU03fFVUtSRj92kCjlI7mfaPNLcLuPelxSOZA7ZBTIvXS6A7ENe2bEfbkNQ5d0EGhO6nkipltifgeuB5h9oUhFvGzg1ApjZbDL5Cplht1a43CwbuwPOYJczJJ98DsfIq-f_qky_EQk368gD46AjP5KFuIxeMR9HmZJhtMTf0GfbaJmn690PyZvbNc" />
+                        <div
+                            class="absolute top-4 right-4 bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full border border-red-200">
+                            Only 2 Spaces Left
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-bold text-lg text-slate-900 leading-tight">Metro Park East</h3>
+                                <p class="text-sm text-slate-500 flex items-center gap-1 mt-1">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                    </svg>
+                                    Railway Station Area
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-auto pt-6 border-t border-slate-50 flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-slate-900">$2.90</span>
+                                <span class="text-xs text-slate-400">/ hour</span>
+                            </div>
+                            <button
+                                class="bg-accent hover:bg-orange-600 text-white text-sm font-bold px-5 py-2.5 rounded-twelve shadow-md shadow-orange-500/20 transition-all" onclick="window.location.href='2.2_Reservation_Confirmation_Driver.html'">
+                                Reserve
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END: ResultsSection -->
+        </section>
+        <!-- END: ContentArea -->
+        <!-- BEGIN: Footer -->
+        <footer class="bg-slate-100 border-t border-slate-200 p-8" data-purpose="driver-panel-footer">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-xs font-medium">Smart Parking Reservation &amp; Vehicle Management System
+                    – Driver Panel</p>
+                <div class="flex gap-6">
+                    <a class="text-slate-400 hover:text-primary text-xs transition-colors" href="#">Privacy Policy</a>
+                    <a class="text-slate-400 hover:text-primary text-xs transition-colors" href="#">Terms of Service</a>
+                    <a class="text-slate-400 hover:text-primary text-xs transition-colors" href="#">Support</a>
+                </div>
+            </div>
+        </footer>
+        <!-- END: Footer -->
+    </main>
+    <!-- END: MainContent -->
+</body>
+
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Manager Reports - Smart Parking System</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Configuration -->
+    <script data-purpose="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            deepBlue: '#1E3A8A',
+                            emerald: '#10B981',
+                            softOrange: '#F59E0B',
+                            softOrangeHover: '#D97706',
+                            lightGray: '#F8FAFC',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        soft: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style data-purpose="custom-layout">
+        body {
+            background-color: #F8FAFC;
+        }
+
+        .sidebar-item-active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #F59E0B;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-slate-900 overflow-hidden">
+    <div class="flex h-screen w-full overflow-hidden">
+        <!-- BEGIN: Sidebar Navigation -->
+        <aside class="w-64 border-r border-slate-200 bg-white flex flex-col fixed h-full">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-10 bg-brand-deepBlue rounded-lg flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">local_parking</span>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm leading-tight">Smart Parking</h1>
+                    <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Manager Panel</p>
+                </div>
+            </div>
+            <nav class="flex-1 flex flex-col overflow-y-auto custom-scrollbar">
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors"
+                    href="1_Manager_Dashboard.html">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="2.1_Reservations_1.html">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    <span class="text-sm">Reservations</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="3_Parking_Spaces.html">
+                    <span class="material-symbols-outlined">garage</span>
+                    <span class="text-sm">Parking Spaces</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="4_Violations_Manager.html">
+                    <span class="material-symbols-outlined">gavel</span>
+                    <span class="text-sm">Violations</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-semibold"
+                    href="5_Reports_Manager.html">
+                    <span class="material-symbols-outlined">bar_chart</span>
+                    <span class="text-sm">Reports</span>
+                </a>
+
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="6_Chat_Driver.html">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                    <span class="text-sm">Chat</span>
+                    <span class="ml-auto bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">2</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="7_Check_in__CheckOut_Manager.html">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    <span class="text-sm">Check-in / Check-out</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-200 mt-auto ">
+                <button
+                    class="w-full flex items-center justify-center gap-2 bg-brand-deepBlue text-white py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-all">
+                    <span class="material-symbols-outlined text-sm">support_agent</span>
+                    <span>Support</span>
+                </button>
+            </div>
+        </aside>
+        <!-- END: Sidebar Navigation -->
+        <!-- BEGIN: Main Content Area -->
+        <main class="flex-1 ml-64 flex flex-col h-full overflow-y-auto custom-scrollbar">
+            <!-- BEGIN: Content Header -->
+            <header class="bg-white border-b border-slate-200 px-10 py-8 flex justify-between items-end shrink-0"
+                data-purpose="page-header">
+                <div class="space-y-1">
+                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Manager Reports</h2>
+                    <p class="text-slate-500 font-medium">View parking analytics and generate monthly reports.</p>
+                </div>
+                <div class="flex gap-4 items-center">
+                    <button
+                        class="bg-brand-softOrange hover:bg-brand-softOrangeHover text-white px-6 py-2.5 rounded-lg font-bold shadow-soft transition-all active:scale-95 flex items-center gap-2"
+                        data-purpose="cta-download">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        Download PDF
+                    </button>
+                </div>
+            </header>
+            <!-- END: Content Header -->
+            <!-- BEGIN: Report Dashboard Content -->
+            <section class="p-10 space-y-10" data-purpose="reports-dashboard">
+                <!-- BEGIN: Summary Cards Row -->
+                <div class="grid grid-cols-4 gap-6" data-purpose="summary-cards">
+                    <!-- Card 1 -->
+                    <div
+                        class="bg-white p-6 rounded-xl border border-slate-100 shadow-soft hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-blue-50 rounded-lg">
+                                <svg class="w-6 h-6 text-brand-deepBlue" fill="none" stroke="currentColor"
+                                    viewbox="0 0 24 24">
+                                    <path
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                </svg>
+                            </div>
+                            <span
+                                class="flex items-center text-brand-emerald text-xs font-bold bg-emerald-50 px-2 py-1 rounded-full">
+                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewbox="0 0 20 20">
+                                    <path clip-rule="evenodd"
+                                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                                12%
+                            </span>
+                        </div>
+                        <p class="text-slate-500 text-sm font-semibold mb-1">Monthly Reservations</p>
+                        <h3 class="text-2xl font-bold text-slate-900">240</h3>
+                    </div>
+                    <!-- Card 2 -->
+                    <div
+                        class="bg-white p-6 rounded-xl border border-slate-100 shadow-soft hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-emerald-50 rounded-lg">
+                                <svg class="w-6 h-6 text-brand-emerald" fill="none" stroke="currentColor"
+                                    viewbox="0 0 24 24">
+                                    <path
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                </svg>
+                            </div>
+                            <span
+                                class="flex items-center text-brand-emerald text-xs font-bold bg-emerald-50 px-2 py-1 rounded-full">
+                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewbox="0 0 20 20">
+                                    <path clip-rule="evenodd"
+                                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                                8.4%
+                            </span>
+                        </div>
+                        <p class="text-slate-500 text-sm font-semibold mb-1">Monthly Earnings</p>
+                        <h3 class="text-2xl font-bold text-slate-900">$12,450</h3>
+                    </div>
+                    <!-- Card 3 -->
+                    <div
+                        class="bg-white p-6 rounded-xl border border-slate-100 shadow-soft hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-blue-50 rounded-lg">
+                                <svg class="w-6 h-6 text-brand-deepBlue" fill="none" stroke="currentColor"
+                                    viewbox="0 0 24 24">
+                                    <path
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                </svg>
+                            </div>
+                            <span
+                                class="flex items-center text-brand-emerald text-xs font-bold bg-emerald-50 px-2 py-1 rounded-full">
+                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewbox="0 0 20 20">
+                                    <path clip-rule="evenodd"
+                                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                                5%
+                            </span>
+                        </div>
+                        <p class="text-slate-500 text-sm font-semibold mb-1">Average Occupancy</p>
+                        <h3 class="text-2xl font-bold text-slate-900">78%</h3>
+                    </div>
+                    <!-- Card 4 -->
+                    <div
+                        class="bg-white p-6 rounded-xl border border-slate-100 shadow-soft hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-red-50 rounded-lg">
+                                <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                    <path
+                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                </svg>
+                            </div>
+                            <span
+                                class="flex items-center text-red-600 text-xs font-bold bg-red-50 px-2 py-1 rounded-full">
+                                <svg class="w-3 h-3 mr-1 rotate-180" fill="currentColor" viewbox="0 0 20 20">
+                                    <path clip-rule="evenodd"
+                                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                                2%
+                            </span>
+                        </div>
+                        <p class="text-slate-500 text-sm font-semibold mb-1">Total Violations</p>
+                        <h3 class="text-2xl font-bold text-slate-900">14</h3>
+                    </div>
+                </div>
+                <!-- END: Summary Cards Row -->
+                <!-- BEGIN: Data Visualization Section -->
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-8" data-purpose="data-viz">
+                    <!-- Monthly Parking Report Table -->
+                    <div class="bg-white rounded-xl border border-slate-100 shadow-soft overflow-hidden"
+                        data-purpose="table-container">
+                        <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                            <h4 class="font-bold text-slate-900">Monthly Parking Report</h4>
+                            <button class="text-brand-deepBlue text-sm font-semibold hover:underline">View All</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse" id="parking-table">
+                                <thead>
+                                    <tr
+                                        class="bg-slate-50 text-slate-500 uppercase text-[10px] font-bold tracking-wider">
+                                        <th class="px-6 py-4">Parking Location</th>
+                                        <th class="px-6 py-4">Total Reservations</th>
+                                        <th class="px-6 py-4">Earnings</th>
+                                        <th class="px-6 py-4">Avg. Occupancy</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-700">Downtown Plaza A</td>
+                                        <td class="px-6 py-4 text-slate-600">84</td>
+                                        <td class="px-6 py-4 text-slate-900 font-medium">$4,120</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                                    <div class="h-full bg-brand-emerald w-[92%]"></div>
+                                                </div>
+                                                <span class="text-xs font-bold text-brand-emerald">92%</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-700">Riverside Parking B</td>
+                                        <td class="px-6 py-4 text-slate-600">62</td>
+                                        <td class="px-6 py-4 text-slate-900 font-medium">$3,550</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                                    <div class="h-full bg-brand-deepBlue w-[75%]"></div>
+                                                </div>
+                                                <span class="text-xs font-bold text-brand-deepBlue">75%</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-700">Central Station North</td>
+                                        <td class="px-6 py-4 text-slate-600">54</td>
+                                        <td class="px-6 py-4 text-slate-900 font-medium">$2,890</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                                    <div class="h-full bg-brand-deepBlue w-[68%]"></div>
+                                                </div>
+                                                <span class="text-xs font-bold text-brand-deepBlue">68%</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50/50 transition-colors">
+                                        <td class="px-6 py-4 font-semibold text-slate-700">South Tech Hub</td>
+                                        <td class="px-6 py-4 text-slate-600">40</td>
+                                        <td class="px-6 py-4 text-slate-900 font-medium">$1,890</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                                    <div class="h-full bg-brand-softOrange w-[55%]"></div>
+                                                </div>
+                                                <span class="text-xs font-bold text-brand-softOrange">55%</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Occupancy Statistics Card -->
+                    <div class="bg-white rounded-xl border border-slate-100 shadow-soft p-6 flex flex-col"
+                        data-purpose="occupancy-stats">
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <h4 class="font-bold text-slate-900">Occupancy Statistics</h4>
+                                <p class="text-xs text-slate-400">Peak hours vs. Average (Weekly)</p>
+                            </div>
+                            <select
+                                class="text-xs font-bold border-slate-200 rounded-md py-1 pr-8 text-slate-600 focus:ring-brand-deepBlue">
+                                <option>This Week</option>
+                                <option>Last Week</option>
+                                <option>This Month</option>
+                            </select>
+                        </div>
+                        <div class="flex-1 min-h-[250px] relative">
+                            <!-- Canvas Placeholder for Chart -->
+                            <canvas class="w-full h-full" id="occupancyChart"></canvas>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-50 grid grid-cols-2 gap-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-brand-deepBlue"></div>
+                                <span class="text-xs font-medium text-slate-500">Reservations</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-brand-emerald"></div>
+                                <span class="text-xs font-medium text-slate-500">Peak Occupancy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Data Visualization Section -->
+            </section>
+            <!-- END: Report Dashboard Content -->
+            <!-- BEGIN: Footer -->
+            <footer class="mt-auto px-10 py-6 border-t border-slate-200 bg-white" data-purpose="main-footer">
+                <p class="text-slate-400 text-sm font-medium text-center">
+                    © 2023 Smart Parking Reservation &amp; Vehicle Management System – Manager Panel
+                </p>
+            </footer>
+            <!-- END: Footer -->
+        </main>
+        <!-- END: Main Content Area -->
+    </div>
+    <!-- BEGIN: Chart Scripts -->
+    <script data-purpose="chart-library" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script data-purpose="canvas-setup">
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('occupancyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Reservations',
+                        data: [65, 59, 80, 81, 95, 40, 30],
+                        backgroundColor: '#1E3A8A', // Deep Blue
+                        borderRadius: 6,
+                    }, {
+                        label: 'Peak %',
+                        data: [78, 85, 92, 90, 98, 55, 45],
+                        backgroundColor: '#10B981', // Emerald Green
+                        borderRadius: 6,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f1f5f9' },
+                            ticks: { font: { size: 10 } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    <!-- END: Chart Scripts -->
+</body>
+
+</html>

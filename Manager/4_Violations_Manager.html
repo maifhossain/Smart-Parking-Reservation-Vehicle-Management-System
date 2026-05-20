@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Violations Management - Smart Parking</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1e3a8a",
+                        "background-light": "#f8fafc",
+                        
+                        "emerald-custom": "#10b981",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light  text-slate-900  font-display">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside
+            class="w-64 border-r border-slate-200  bg-white  flex flex-col fixed h-full">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">local_parking</span>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm leading-tight">Smart Parking</h1>
+                    <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Manager Panel</p>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 space-y-1 mt-4">
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors"
+                    href="1_Manager_Dashboard.html">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50  transition-colors"
+                    href="2.1_Reservations_1.html">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    <span class="text-sm">Reservations</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="3_Parking_Spaces.html">
+                    <span class="material-symbols-outlined">garage</span>
+                    <span class="text-sm">Parking Spaces</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-semibold"
+                    href="4_Violations_Manager.html">
+                    <span class="material-symbols-outlined">gavel</span>
+                    <span class="text-sm">Violations</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="5_Reports_Manager.html">
+                    <span class="material-symbols-outlined">bar_chart</span>
+                    <span class="text-sm">Reports</span>
+                </a>
+                
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="6_Chat_Driver.html">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                    <span class="text-sm">Chat</span>
+                    <span class="ml-auto bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">2</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="7_Check_in__CheckOut_Manager.html">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    <span class="text-sm">Check-in / Check-out</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-200 ">
+                <button
+                    class="w-full flex items-center justify-center gap-2 bg-primary text-white py-2 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-all">
+                    <span class="material-symbols-outlined text-sm">support_agent</span>
+                    <span>Support</span>
+                </button>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8 flex flex-col">
+            <!-- Top Header Area -->
+            <header class="mb-8 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900  tracking-tight">Violations Management
+                    </h2>
+                    <p class="text-slate-500  mt-1">Monitor, track, and take action on driver
+                        violations.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+                        <input
+                            class="pl-10 pr-4 py-2 bg-white  border border-slate-200  rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all w-64"
+                            placeholder="Search drivers..." type="text" />
+                    </div>
+                    <button
+                        class="flex items-center gap-2 px-4 py-2 bg-white d border border-slate-200  rounded-lg text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 transition-colors">
+                        <span class="material-symbols-outlined text-lg">calendar_today</span>
+                        Date Range
+                    </button>
+                    <button
+                        class="flex items-center gap-2 px-4 py-2 bg-white  border border-slate-200  rounded-lg text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 transition-colors">
+                        <span class="material-symbols-outlined text-lg">filter_list</span>
+                        Type
+                    </button>
+                    <button
+                        class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm">
+                        <span class="material-symbols-outlined text-lg">download</span>
+                        Export
+                    </button>
+                </div>
+            </header>
+            <!-- Quick Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div
+                    class="bg-white  p-6 rounded-xl border border-slate-200  shadow-sm flex items-center gap-5">
+                    <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-2xl">report</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-slate-500 ">Total Violations Today</p>
+                        <h3 class="text-2xl font-bold text-slate-900 ">12</h3>
+                    </div>
+                </div>
+                <div
+                    class="bg-white  p-6 rounded-xl border border-slate-200  shadow-sm flex items-center gap-5">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-emerald-custom/10 flex items-center justify-center text-emerald-custom">
+                        <span class="material-symbols-outlined text-2xl">check_circle</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-slate-500 ">Resolved</p>
+                        <h3 class="text-2xl font-bold text-slate-900 ">8</h3>
+                    </div>
+                </div>
+                <div
+                    class="bg-white  p-6 rounded-xl border border-slate-200  shadow-sm flex items-center gap-5">
+                    <div class="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500">
+                        <span class="material-symbols-outlined text-2xl">pending_actions</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-slate-500 ">Pending</p>
+                        <h3 class="text-2xl font-bold text-slate-900 ">4</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Content Table Card -->
+            <div
+                class="bg-white  rounded-xl border border-slate-200  shadow-lg overflow-hidden flex-1">
+                <div
+                    class="p-4 border-b border-slate-200  bg-slate-50/50  flex justify-between items-center">
+                    <h4 class="font-semibold text-slate-800 ">Violation Records</h4>
+                    <div class="flex gap-2">
+                        <button
+                            class="p-1.5 hover:bg-slate-200  rounded transition-colors text-slate-500">
+                            <span class="material-symbols-outlined text-xl">refresh</span>
+                        </button>
+                        <button
+                            class="p-1.5 hover:bg-slate-200  rounded transition-colors text-slate-500">
+                            <span class="material-symbols-outlined text-xl">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr
+                                class="text-xs uppercase tracking-wider text-slate-500  border-b border-slate-200 ">
+                                <th class="px-6 py-4 font-semibold">Driver</th>
+                                <th class="px-6 py-4 font-semibold">Violation</th>
+                                <th class="px-6 py-4 font-semibold">Date</th>
+                                <th class="px-6 py-4 font-semibold text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 ">
+                            <!-- Row 1 -->
+                            <tr class="hover:bg-slate-50  transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-slate-200  flex items-center justify-center text-slate-600 font-bold text-xs"
+                                            data-alt="Driver Ahmed Rahman profile"
+                                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAg1-pnldY4SmSzIBFmx8yGV7K6Ca_WCCVkKCqVb_oKBcI0Fr8oOpfvcAe-sM6EYo35KnkWXi6ECB5D4z0F0Q3yx3RiY9X9ePzqJskOV1OwDB1uQfC1Bbi7C-3JBbnd-RUReezv3dowRzucYQxmBPS_SLb-B8mfBiPAkkkuaoxDvg3f1wDoPEWzHFLGN1tzHB8JH-7vJGnOo_9AzTmjGMF1Uz50DbBn3ym3R5eKef5X5Gthjm-P4T-Nnpgdmtdo5aW_ixB0TqvtzME')">
+                                            AR
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-900 ">Ahmed
+                                            Rahman</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700 ">
+                                        Illegal Parking
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-slate-500 ">
+                                    2026-03-11
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex justify-end gap-2">
+                                        <button
+                                            class="px-3 py-1.5 text-xs font-semibold text-emerald-custom hover:bg-emerald-50  rounded transition-colors">Resolve</button>
+                                        <button
+                                            class="px-3 py-1.5 text-xs font-semibold text-slate-600  hover:bg-slate-100  rounded transition-colors">Warn</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 2 -->
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-slate-200  flex items-center justify-center text-slate-600 font-bold text-xs"
+                                            data-alt="Driver Sarah Ahmed profile"
+                                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCp1oQLGSeWC8YpE5qHjvALjpg-5OE4t4P_aHSmTFxoszBTKc8hnD_DLfhngY_ubmQKmb_Y-9pINOXp95xil2afVLjGxWtP7TbeminyBf1AUnZp-BqFX7lfQmop_-esFlfxX7ppiMDDKUbU1pzf4GbTi-kecD_3OkioJNBhU2YvD0lIhilfIYdJlbqRSamQI6st36YvIwQFfA6Mu4uhrDCIWubKPNTyJOk7eEgk46PegGCBSNBMtFuKdZwiXH7gwoEXIKSGJa4LanQ')">
+                                            SA
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-900 ">Sarah
+                                            Ahmed</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-700 ">
+                                        Overstay
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-slate-500 ">
+                                    2026-03-10
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex justify-end gap-2">
+                                        <button
+                                            class="px-3 py-1.5 text-xs font-semibold text-emerald-custom hover:bg-emerald-50  rounded transition-colors">Resolve</button>
+                                        <button
+                                            class="px-3 py-1.5 text-xs font-semibold text-slate-600  hover:bg-slate-100  rounded transition-colors">Warn</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Row 3 -->
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-slate- flex items-center justify-center text-slate-600 font-bold text-xs"
+                                            data-alt="Driver Michael Lee profile"
+                                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAefL7v93qO46Sb0KQUzqjxjm5xNiION9k_1WNX3NAzMZFAWJLuY4Owh3Y0oZCQ2gtSMgPyTi3weqHaNIOzTJTRxqRHY1wcjPY5oNWn6hlHHf6qxcIl-N3OLLh7brw-MoG5cexgZ1dC9EnijZaGl2E1fzNYBTb0tpsv1s4EQjygBzoUqcbNDAi6_q7o5FBvEq3pGSTy_Ku6naDoFp-1AQGD1o175DGR1CK6Ez5_l6GibuUrcNYcw5pMqsThFrfJkvnyjvvCJPw6yX8')">
+                                            ML
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-900 ">Michael
+                                            Lee</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 ">
+                                        Blocking
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-slate-500 ">
+                                    2026-03-09
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex justify-end gap-2">
+                                        <button
+                                            class="px-3 py-1.5 text-xs font-semibold text-emerald-custom hover:bg-emerald-50  rounded transition-colors">Resolve</button>
+                                        <button
+                                            class="px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded transition-colors">Warn</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                    <p class="text-xs text-slate-500">Showing 3 of 12 recent violations</p>
+                    <div class="flex gap-1">
+                        <button
+                            class="p-1 px-3 border border-slate-200 dark:border-slate-800 rounded text-xs font-medium hover:bg-slate-50 disabled:opacity-50"
+                            disabled="">Previous</button>
+                        <button
+                            class="p-1 px-3 border border-slate-200 dark:border-slate-800 rounded text-xs font-medium hover:bg-slate-50">Next</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <footer class="mt-auto py-8 text-center border-t border-slate-200 dark:border-slate-800">
+                <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Smart Parking Reservation &amp;
+                    Vehicle Management System – Manager Panel</p>
+                <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">© 2024 System Admin Portal. All Rights
+                    Reserved.</p>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>

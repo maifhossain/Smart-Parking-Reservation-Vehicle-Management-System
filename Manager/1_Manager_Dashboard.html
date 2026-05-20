@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Smart Parking - Manager Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1e3b8a",
+                        "background-light": "#f6f6f8",
+
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light  font-display text-slate-900 ">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 border-r border-slate-200  bg-white  flex flex-col fixed h-full">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">local_parking</span>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm leading-tight">Smart Parking</h1>
+                    <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Manager Panel</p>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 space-y-1 mt-4">
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-semibold"
+                    href="1_Manager_Dashboard.html">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="2.1_Reservations_1.html">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    <span class="text-sm">Reservations</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="3_Parking_Spaces.html">
+                    <span class="material-symbols-outlined">garage</span>
+                    <span class="text-sm">Parking Spaces</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="4_Violations_Manager.html">
+                    <span class="material-symbols-outlined">gavel</span>
+                    <span class="text-sm">Violations</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="5_Reports_Manager.html">
+                    <span class="material-symbols-outlined">bar_chart</span>
+                    <span class="text-sm">Reports</span>
+                </a>
+
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="6_Chat_Driver.html">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                    <span class="text-sm">Chat</span>
+                    <span class="ml-auto bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">2</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="7_Check_in__CheckOut_Manager.html">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    <span class="text-sm">Check-in / Check-out</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-200 ">
+                <button
+                    class="w-full flex items-center justify-center gap-2 bg-primary text-white py-2 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-all">
+                    <span class="material-symbols-outlined text-sm">support_agent</span>
+                    <span>Support</span>
+                </button>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 flex flex-col">
+            <!-- Header -->
+            <header
+                class="h-16 border-b border-slate-200  bg-white/80  backdrop-blur-md flex items-center justify-between px-8 sticky top-0 z-10">
+                <div class="flex items-center gap-6">
+                    <h2 class="font-bold text-lg">Parking Manager Dashboard</h2>
+                    <div class="relative w-64">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+                        <input
+                            class="w-full bg-slate-100  border-none rounded-lg pl-10 pr-4 py-1.5 text-sm focus:ring-2 focus:ring-primary/20"
+                            placeholder="Search vehicle or slot..." type="text" />
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="p-2 text-slate-500 hover:bg-slate-100  rounded-lg relative">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span
+                            class="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white "></span>
+                    </button>
+                    <div class="h-8 w-[1px] bg-slate-200  mx-1"></div>
+                    <div class="flex items-center gap-3">
+                        <div class="text-right hidden sm:block">
+                            <p class="text-xs font-bold">Admin Manager</p>
+                            <p class="text-[10px] text-slate-500">Super Admin</p>
+                        </div>
+                        <img alt="Avatar" class="size-9 rounded-full object-cover border-2 border-primary/20"
+                            data-alt="Portrait of a professional dashboard manager"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD5ko3k-onT-SF2KBpLHyF4fIlTIO1LICd2WZK_WFwPIdQNwfx__ORxsL5LOd7jZiL7P9AmRn-FGpRZ8L6D5MiO9blhdRivBeqhXDWOMPA-kO1-vKIJaCqs6WUkRYmQYp26z5XOeKjyWeKdbdqK9HJGfxQ9s7BjWGoTOVevbHD64NvFScxzO5yqkKYNBqXZWIJGnmt1BKEwZU-bUWkzJhi1zLyCO4YpTqS4yPWuthE14g_NOSrGPSoOXxunOwr6egnb2xQeU13ijg" />
+                    </div>
+                </div>
+            </header>
+            <div class="p-8 space-y-8">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white  p-6 rounded-xl border border-slate-200  shadow-sm">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-blue-50  text-blue-600 rounded-lg">
+                                <span class="material-symbols-outlined">event_available</span>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-500 flex items-center">+12% <span
+                                    class="material-symbols-outlined text-xs">trending_up</span></span>
+                        </div>
+                        <p class="text-slate-500 text-sm font-medium">Today Reservations</p>
+                        <h3 class="text-3xl font-bold mt-1">84</h3>
+                    </div>
+                    <div class="bg-white  p-6 rounded-xl border border-slate-200  shadow-sm">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-emerald-50  text-emerald-600 rounded-lg">
+                                <span class="material-symbols-outlined">check_circle</span>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-500 flex items-center">+5% <span
+                                    class="material-symbols-outlined text-xs">trending_up</span></span>
+                        </div>
+                        <p class="text-slate-500 text-sm font-medium">Available Spaces</p>
+                        <h3 class="text-3xl font-bold mt-1">36</h3>
+                    </div>
+                    <div class="bg-white  p-6 rounded-xl border border-slate-200  shadow-sm">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-2 bg-rose-50  text-rose-600 rounded-lg">
+                                <span class="material-symbols-outlined">directions_car</span>
+                            </div>
+                            <span class="text-xs font-bold text-rose-500 flex items-center">-2% <span
+                                    class="material-symbols-outlined text-xs">trending_down</span></span>
+                        </div>
+                        <p class="text-slate-500 text-sm font-medium">Occupied Spaces</p>
+                        <h3 class="text-3xl font-bold mt-1">112</h3>
+                    </div>
+                </div>
+                <!-- Main Grid Layout -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Real-Time Parking Status -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="bg-white  rounded-xl border border-slate-200  shadow-sm overflow-hidden">
+                            <div class="p-6 border-b border-slate-100  flex justify-between items-center">
+                                <h4 class="font-bold flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary">grid_view</span>
+                                    Real-Time Parking Status
+                                </h4>
+                                <div class="flex gap-4 text-[10px] font-bold uppercase tracking-widest">
+                                    <div class="flex items-center gap-1.5"><span
+                                            class="w-3 h-3 rounded-full bg-gray-500"></span> BLOCK</div>
+                                    <div class="flex items-center gap-1.5"><span
+                                            class="w-3 h-3 rounded-full bg-emerald-500"></span> Available</div>
+                                    <div class="flex items-center gap-1.5"><span
+                                            class="w-3 h-3 rounded-full bg-rose-500"></span> Occupied</div>
+                                    <div class="flex items-center gap-1.5"><span
+                                            class="w-3 h-3 rounded-full bg-orange-500"></span> Reserved</div>
+                                </div>
+                            </div>
+                            <div class="p-6 space-y-8">
+                                <div>
+                                    <p class="text-xs font-bold text-slate-400 mb-4 uppercase tracking-wider">Zone A
+                                        (Premium)</p>
+                                    <div class="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-3">
+                                        <div
+                                            class="aspect-square bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md cursor-pointer hover:opacity-80">
+                                            A1</div>
+                                        <div
+                                            class="aspect-square bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md cursor-pointer hover:opacity-80">
+                                            A2</div>
+                                        <div
+                                            class="aspect-square bg-gray-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md cursor-pointer hover:opacity-80">
+                                            A3</div>
+                                        <div
+                                            class="aspect-square bg-orange-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md cursor-pointer hover:opacity-80">
+                                            A4</div>
+                                        <div
+                                            class="aspect-square bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md cursor-pointer hover:opacity-80">
+                                            A5</div>
+                                        <div
+                                            class="aspect-square bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md cursor-pointer hover:opacity-80">
+                                            A6</div>
+                                        <div
+                                            class="aspect-square bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md cursor-pointer hover:opacity-80">
+                                            A7</div>
+                                        <div
+                                            class="aspect-square bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md cursor-pointer hover:opacity-80">
+                                            A8</div>
+                                        <div
+                                            class="aspect-square bg-orange-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md cursor-pointer hover:opacity-80">
+                                            A9</div>
+                                        <div
+                                            class="aspect-square bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md cursor-pointer hover:opacity-80">
+                                            A10</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-400 mb-4 uppercase tracking-wider">Zone B
+                                        (Standard)</p>
+                                    <div class="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-3">
+                                        <div
+                                            class="aspect-square bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md">
+                                            B1</div>
+                                        <div
+                                            class="aspect-square bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md">
+                                            B2</div>
+                                        <div
+                                            class="aspect-square bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md">
+                                            B3</div>
+                                        <div
+                                            class="aspect-square bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md">
+                                            B4</div>
+                                        <div
+                                            class="aspect-square bg-gray-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md">
+                                            B5</div>
+                                        <div
+                                            class="aspect-square bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md">
+                                            B6</div>
+                                        <div
+                                            class="aspect-square bg-orange-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md">
+                                            B7</div>
+                                        <div
+                                            class="aspect-square bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md">
+                                            B8</div>
+                                        <div
+                                            class="aspect-square bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md">
+                                            B9</div>
+                                        <div
+                                            class="aspect-square bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center rounded-md">
+                                            B10</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Recent Reservations Table -->
+                        <div class="bg-white  rounded-xl border border-slate-200  shadow-sm overflow-hidden">
+                            <div class="p-6 border-b border-slate-100 ">
+                                <h4 class="font-bold">Recent Reservations</h4>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left">
+                                    <thead>
+                                        <tr
+                                            class="text-xs font-bold text-slate-400 uppercase tracking-wider bg-slate-50 ">
+                                            <th class="px-6 py-4">Driver Name</th>
+                                            <th class="px-6 py-4">Vehicle No</th>
+                                            <th class="px-6 py-4">Slot</th>
+                                            <th class="px-6 py-4">Duration</th>
+                                            <th class="px-6 py-4">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 ">
+                                        <tr class="text-sm hover:bg-slate-50  transition-colors">
+                                            <td class="px-6 py-4 font-medium">Ahmed Rahman</td>
+                                            <td class="px-6 py-4 text-slate-500 font-mono">DHK-3456</td>
+                                            <td class="px-6 py-4"><span
+                                                    class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-bold">A12</span>
+                                            </td>
+                                            <td class="px-6 py-4 text-slate-500">2:00 - 4:00 PM</td>
+                                            <td class="px-6 py-4">
+                                                <span
+                                                    class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 ">Active</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="text-sm hover:bg-slate-50  transition-colors">
+                                            <td class="px-6 py-4 font-medium">Sarah Ahmed</td>
+                                            <td class="px-6 py-4 text-slate-500 font-mono">DHA-1123</td>
+                                            <td class="px-6 py-4"><span
+                                                    class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-bold">B04</span>
+                                            </td>
+                                            <td class="px-6 py-4 text-slate-500">3:00 - 5:00 PM</td>
+                                            <td class="px-6 py-4">
+                                                <span
+                                                    class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800  ">Completed</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="text-sm hover:bg-slate-50  transition-colors">
+                                            <td class="px-6 py-4 font-medium">Michael Lee</td>
+                                            <td class="px-6 py-4 text-slate-500 font-mono">CTG-7789</td>
+                                            <td class="px-6 py-4"><span
+                                                    class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-bold">C09</span>
+                                            </td>
+                                            <td class="px-6 py-4 text-slate-500">1:00 - 2:30 PM</td>
+                                            <td class="px-6 py-4">
+                                                <span
+                                                    class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 ">Active</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right Column Sidebar Content -->
+                    <div class="space-y-8">
+                        <!-- Occupancy Trend Chart (Simulated with bars) -->
+                        <div class="bg-white  p-6 rounded-xl border border-slate-200 shadow-sm">
+                            <h4 class="font-bold mb-6">Occupancy Trend Today</h4>
+                            <div class="space-y-5">
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-medium">
+                                        <span>Morning</span>
+                                        <span class="text-primary font-bold">60%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100  h-2 rounded-full overflow-hidden">
+                                        <div class="bg-primary h-full rounded-full" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-medium">
+                                        <span>Afternoon</span>
+                                        <span class="text-primary font-bold">78%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100  h-2 rounded-full overflow-hidden">
+                                        <div class="bg-primary h-full rounded-full" style="width: 78%"></div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-medium">
+                                        <span>Evening</span>
+                                        <span class="text-primary font-bold">85%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100  h-2 rounded-full overflow-hidden">
+                                        <div class="bg-primary h-full rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Quick Actions -->
+                        <div class="bg-white  p-6 rounded-xl border border-slate-200  shadow-sm">
+                            <h4 class="font-bold mb-4">Quick Actions</h4>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button
+                                    class="flex flex-col items-center justify-center p-4 bg-slate-50 0 rounded-lg border border-slate-100  hover:border-primary/40 transition-all text-center">
+                                    <span class="material-symbols-outlined text-primary mb-2">assignment</span>
+                                    <span class="text-[10px] font-bold uppercase">Reservations</span>
+                                </button>
+                                <button
+                                    class="flex flex-col items-center justify-center p-4 bg-slate-50 0 rounded-lg border border-slate-100  hover:border-primary/40 transition-all text-center">
+                                    <span
+                                        class="material-symbols-outlined text-primary mb-2">settings_input_component</span>
+                                    <span class="text-[10px] font-bold uppercase">Spaces</span>
+                                </button>
+                                <button
+                                    class="flex flex-col items-center justify-center p-4 bg-slate-50 rounded-lg border border-slate-100  hover:border-primary/40 transition-all text-center">
+                                    <span class="material-symbols-outlined text-rose-500 mb-2">report_problem</span>
+                                    <span class="text-[10px] font-bold uppercase">Violations</span>
+                                </button>
+                                <button
+                                    class="flex flex-col items-center justify-center p-4 bg-slate-50  rounded-lg border border-slate-100  hover:border-primary/40 transition-all text-center">
+                                    <span class="material-symbols-outlined text-primary mb-2">cloud_download</span>
+                                    <span class="text-[10px] font-bold uppercase">Reports</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Chat Widget -->
+                        <div class="bg-white  rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div class="p-4 bg-primary text-white flex justify-between items-center">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">chat</span>
+                                    <span class="text-sm font-bold">Driver Support</span>
+                                </div>
+                                <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                            </div>
+                            <div class="p-4 space-y-4 max-h-[250px] overflow-y-auto scrollbar-hide">
+                                <div class="flex flex-col items-start gap-1">
+                                    <p class="text-[10px] text-slate-400 font-bold ml-1">Driver • 10:42 AM</p>
+                                    <div class="bg-slate-100  p-3 rounded-2xl rounded-tl-none text-xs">
+                                        Is slot A12 available for the next 2 hours?
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-end gap-1">
+                                    <p class="text-[10px] text-slate-400 font-bold mr-1">You • 10:45 AM</p>
+                                    <div
+                                        class="bg-primary/10 text-primary p-3 rounded-2xl rounded-tr-none text-xs font-medium">
+                                        Yes, it is currently available and you can reserve it now.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 border-t border-slate-100 ">
+                                <button
+                                    class="w-full bg-slate-50  border border-slate-200  py-2 rounded-lg text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all">
+                                    Open Chat
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <footer class="mt-auto py-6 px-8 border-t border-slate-200  bg-white  text-center">
+                <p class="text-slate-400 text-xs font-medium">Smart Parking Reservation &amp; Vehicle Management System
+                    – Manager Panel © 2024</p>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Chat Support - Urban Concierge</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#444651",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "secondary-container": "#fea619",
+                        "surface-tint": "#4059aa",
+                        "primary": "#00236f",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "surface-dim": "#d8dadc",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container": "#eceef0",
+                        "surface": "#f7f9fb",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "on-tertiary-fixed": "#002113",
+                        "secondary-fixed": "#ffddb8",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#1e3a8a",
+                        "inverse-surface": "#2d3133",
+                        "on-background": "#191c1e",
+                        "inverse-primary": "#b6c4ff",
+                        "outline": "#757682",
+                        "surface-bright": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#2a1700",
+                        "surface-container-high": "#e6e8ea",
+                        "on-primary-fixed": "#00164e",
+                        "on-secondary-container": "#684000",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#264191",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#004a31",
+                        "on-tertiary-container": "#27c38a",
+                        "error": "#ba1a1a",
+                        "tertiary": "#00311f",
+                        "on-primary-container": "#90a8ff",
+                        "secondary": "#855300",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c5c5d3",
+                        "background": "#f7f9fb",
+                        "primary-fixed": "#dce1ff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+            color: #191c1e;
+        }
+
+        .font-manrope {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(197, 197, 211, 0.2);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e0e3e5;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="overflow-hidden">
+    <!-- SideNavBar -->
+    <aside
+            class="w-64 border-r border-slate-200  bg-white  flex flex-col fixed h-full">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">local_parking</span>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm leading-tight">Smart Parking</h1>
+                    <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Manager Panel</p>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 space-y-1 mt-4">
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors"
+                    href="1_Manager_Dashboard.html">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="2.1_Reservations_1.html">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    <span class="text-sm">Reservations</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50 d transition-colors"
+                    href="3_Parking_Spaces.html">
+                    <span class="material-symbols-outlined">garage</span>
+                    <span class="text-sm">Parking Spaces</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="4_Violations_Manager.html">
+                    <span class="material-symbols-outlined">gavel</span>
+                    <span class="text-sm">Violations</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="5_Reports_Manager.html">
+                    <span class="material-symbols-outlined">bar_chart</span>
+                    <span class="text-sm">Reports</span>
+                </a>
+                
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-semibold"
+                    href="6_Chat_Driver.html">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                    <span class="text-sm">Chat</span>
+                    <span class="ml-auto bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">2</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
+                    href="7_Check_in__CheckOut_Manager.html">
+                    <span class="material-symbols-outlined">check_circle</span>
+                    <span class="text-sm">Check-in / Check-out</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+                <button
+                    class="w-full flex items-center justify-center gap-2 bg-primary text-white py-2 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-all">
+                    <span class="material-symbols-outlined text-sm">support_agent</span>
+                    <span>Support</span>
+                </button>
+            </div>
+        </aside>
+    <!-- Main Wrapper -->
+    <main class="ml-64 flex flex-col h-screen overflow-hidden">
+        <!-- TopNavBar -->
+        <header
+            class="sticky top-0 z-40 w-full bg-white/70 backdrop-blur-xl h-16 px-8 flex justify-between items-center">
+            <div>
+                <h2 class="font-manrope text-lg font-extrabold text-primary">Chat Support</h2>
+            </div>
+            <div class="flex items-center gap-4">
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-600 transition-colors">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-600 transition-colors">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+            </div>
+        </header>
+        <!-- Content Area: Split Pane -->
+        <div class="flex flex-1 overflow-hidden px-8 pb-8 gap-8">
+            <!-- Left Pane: Chat List -->
+            <section class="w-[350px] flex flex-col space-y-4">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-manrope text-xl font-bold text-primary">Messages</h3>
+                    <span
+                        class="text-[10px] font-bold bg-primary/10 text-primary px-2 py-1 rounded-full uppercase tracking-tighter">3
+                        Active</span>
+                </div>
+                <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-2">
+                    <!-- Chat Item 1 (Active) -->
+                    <div
+                        class="p-4 bg-white rounded-xl shadow-[0px_12px_32px_rgba(0,35,111,0.04)] ring-2 ring-primary-container/10 flex gap-4 cursor-pointer hover:bg-slate-50 transition-colors">
+                        <div class="relative flex-shrink-0">
+                            <img alt="Parking Manager Avatar" class="w-12 h-12 rounded-xl object-cover"
+                                data-alt="Professional corporate headshot of a parking facility manager in a sharp blue suit, neutral studio background"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtipFEe8ZMthC_w8TOBXD7GZZ-fGRKgZWw9-1x1CpIRCqR8mB-UNgRW6U6V0vo1LG6tWrMBNOSFqjXzIRWKBXABi7Q4Iz2oXjPts4yiaBjHI9SIrNn_aBKLnUMVjiTUsNBF9KBc5WSmen7WAakk4aWgZHzfmf1nEY-r8NLZzC6OwhtZFnPnGi_-ycfAV9nks_-yJORPHqajGJTmmJOM1Cuco9Rx7Kh_H42Hfxrg5X1tV_IwVCpdqDk-Vqc-CfcfM86rSzxiqwZYQ" />
+                            <span
+                                class="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-on-tertiary-container border-2 border-white rounded-full"></span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-start mb-0.5">
+                                <p class="font-manrope font-bold text-primary truncate">Parking Manager</p>
+                                <span class="text-[10px] text-slate-400 font-medium">2:15 PM</span>
+                            </div>
+                            <p class="text-xs text-slate-500 truncate leading-relaxed">Yes, your slot A12 is reserved...
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Chat Item 2 -->
+                    <div
+                        class="p-4 bg-white/60 rounded-xl flex gap-4 cursor-pointer hover:bg-white hover:shadow-sm transition-all">
+                        <div class="relative flex-shrink-0">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400">
+                                <span class="material-symbols-outlined text-2xl">support_agent</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-start mb-0.5">
+                                <p class="font-manrope font-bold text-slate-700 truncate">Support Team</p>
+                                <span class="text-[10px] text-slate-400 font-medium">1:30 PM</span>
+                            </div>
+                            <p class="text-xs text-slate-400 truncate leading-relaxed">Please send the image of the
+                                issue...</p>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span
+                                class="w-5 h-5 bg-primary-container text-white text-[10px] font-bold flex items-center justify-center rounded-full">1</span>
+                        </div>
+                    </div>
+                    <!-- Chat Item 3 -->
+                    <div
+                        class="p-4 bg-white/60 rounded-xl flex gap-4 cursor-pointer hover:bg-white hover:shadow-sm transition-all opacity-80">
+                        <div class="relative flex-shrink-0">
+                            <img alt="Manager Avatar" class="w-12 h-12 rounded-xl object-cover grayscale"
+                                data-alt="Close up of a female supervisor with professional attire, soft lighting in a modern office environment"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrQwOk9pljJQYQUaY46jp8zTBQAt0vS8SjhnVcugBrb414w1zvdMML6mb6gU1eWlToG7_FGMxgiLUOh79_dCmY7_4yLoQuTLlENkqL-9PItVXdiPUipYELqkrK8gwj7yK5f6ucpoP9eC-zh6w28m-u8oZ7T-kadG4WdhBfPmliaaMtah83llBKoGazfchO9IkxKE_7z1zPwrE2uLpgzUjbIltxlbr-QXdrFJPirOQkKZ09qnsVNstG0HWIUu8qYfGsM4lRenBJiA" />
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-start mb-0.5">
+                                <p class="font-manrope font-bold text-slate-700 truncate">Floor Supervisor</p>
+                                <span class="text-[10px] text-slate-400 font-medium">Yesterday</span>
+                            </div>
+                            <p class="text-xs text-slate-400 truncate leading-relaxed">Slot A12 is now available for
+                                your next...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Right Pane: Conversation Window -->
+            <section
+                class="flex-1 flex flex-col bg-white rounded-[2rem] shadow-[0px_12px_32px_rgba(0,35,111,0.06)] overflow-hidden">
+                <!-- Chat Header -->
+                <div class="px-8 py-5 border-b border-slate-50 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="relative">
+                            <img alt="Parking Manager Header Avatar" class="w-10 h-10 rounded-full object-cover"
+                                data-alt="Portrait of a parking manager in a blue suit, professional lighting"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5LVzTIeTuBGW7UZGXWXy9vmBGzioUpIGQCfuWvir8HFQg9Rp2J-fQGVmo9WjPCvBoEr8Wabz01o7I5qToGznDMzCpcz1Y_QY1WC4LeMxArWl3hJUc75vAL-GJIcM78Ac7MChr3e3TEDuWXJuZBhVV7BX7ZUfJl79XTNQqwgWEa3K8nES5iflS5k1Fdh2FEPRpKbyXviBtyKYk2rfjnax-S5Al6B2aw_PO6dIsJR9v6-Rv1exe-qaajTf5xA8d4w83Mi_PXi6Ljg" />
+                            <span
+                                class="absolute bottom-0 right-0 w-3 h-3 bg-on-tertiary-container border-2 border-white rounded-full"></span>
+                        </div>
+                        <div>
+                            <h4 class="font-manrope font-bold text-primary">Parking Manager</h4>
+                            <p class="text-[10px] text-on-tertiary-container font-bold flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 bg-on-tertiary-container rounded-full animate-pulse"></span>
+                                Online Now
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="p-2 text-slate-400 hover:text-primary transition-colors"><span
+                                class="material-symbols-outlined">call</span></button>
+                        <button class="p-2 text-slate-400 hover:text-primary transition-colors"><span
+                                class="material-symbols-outlined">more_vert</span></button>
+                    </div>
+                </div>
+                <!-- Messages Content -->
+                <div class="flex-1 overflow-y-auto custom-scrollbar p-8 space-y-6">
+                    <div class="flex justify-center my-4">
+                        <span
+                            class="text-[10px] font-label font-bold text-slate-400 bg-slate-50 px-3 py-1 rounded-full uppercase tracking-widest">Today,
+                            Oct 24</span>
+                    </div>
+                    <!-- Manager Message -->
+                    <div class="flex items-end gap-3 max-w-[70%]">
+                        <img alt="Avatar" class="w-8 h-8 rounded-full object-cover mb-1 flex-shrink-0"
+                            data-alt="Manager avatar small icon"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFRl86VDn2MXUbJ6ZGnwcNNGvFsjc4ZZz3qkOsg0Ev_9hHITAZ4WpADYVhqeo-2wCUUQ9-KPFMbczj98_j1HdZFkY7TAQ2p7ctyl1Zd7ESpn37SY34omb0d0ZpozX2hji0rPWIvab6Xk8XzObTNd8fZNAwBFrJtH1q7YqneKYwz76CCHoVU0ft4WiM4tPg2rIUrNk2JgCCawIZ3fNnYVGHet3pDGCjdOROUfYjDNY2EQ3xpywOLnNel4mLdqIN47Q9-pb32swsxg" />
+                        <div class="space-y-1">
+                            <div
+                                class="bg-surface-container-low text-on-surface p-4 rounded-2xl rounded-bl-none shadow-sm">
+                                <p class="text-sm leading-relaxed">Hello, how can I assist you today? I see you have an
+                                    upcoming reservation.</p>
+                            </div>
+                            <p class="text-[10px] text-slate-400 px-1">1:55 PM</p>
+                        </div>
+                    </div>
+                    <!-- Driver Message -->
+                    <div class="flex flex-row-reverse items-end gap-3 max-w-[70%] ml-auto">
+                        <div class="space-y-1 items-end flex flex-col">
+                            <div
+                                class="bg-primary-container text-white p-4 rounded-2xl rounded-br-none shadow-md shadow-primary/10">
+                                <p class="text-sm leading-relaxed">Is my parking slot reserved for 2 PM? I'm arriving at
+                                    the North Gate shortly.</p>
+                            </div>
+                            <p class="text-[10px] text-slate-400 px-1">2:02 PM</p>
+                        </div>
+                    </div>
+                    <!-- Manager Message (Success Info) -->
+                    <div class="flex items-end gap-3 max-w-[70%]">
+                        <img alt="Avatar" class="w-8 h-8 rounded-full object-cover mb-1 flex-shrink-0"
+                            data-alt="Manager avatar small icon"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhok0SJCeWi0pTPctaS93PxpNKnx-M7mAwIq6XnaE2212FF5cCT8DyFYTfqd5wUnmzF59bsiRJRmPw2eqZC3vCFpYVznb864uFhd__d53D1v4t65hRhrNLeTMb9qM_B2w1sEiEIp0K7ac59a5SSlI-Hg88tzmSZRZTPdL3fH8Wei3q8dwvUEp16v5xEoDf9jl-kPDoGAxAlWH4Y46eKS3J99ZwDUapIJfHqrVToccLWM0sFttgRGmewxknLH_20ZRNk3b1D35N4g" />
+                        <div class="space-y-1">
+                            <div
+                                class="bg-surface-container-low text-on-surface p-4 rounded-2xl rounded-bl-none shadow-sm border-l-4 border-on-tertiary-container">
+                                <p class="text-sm leading-relaxed">Yes, your slot <strong
+                                        class="text-primary font-bold">A12</strong> is reserved successfully. The gate
+                                    system will recognize your plate number on arrival.</p>
+                            </div>
+                            <p class="text-[10px] text-slate-400 px-1">2:05 PM</p>
+                        </div>
+                    </div>
+                    <!-- Driver Typing Simulation (Optional Visual) -->
+                    <div class="flex flex-row-reverse items-end gap-3 max-w-[70%] ml-auto opacity-40">
+                        <div class="bg-primary-container/20 px-4 py-2 rounded-full">
+                            <div class="flex gap-1">
+                                <span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                                <span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                                <span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Message Input Area -->
+                <div class="p-8 pt-0">
+                    <div class="glass-input rounded-[1.5rem] p-2 flex items-center gap-2">
+                        <button
+                            class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined">add_circle</span>
+                        </button>
+                        <button
+                            class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined">mood</span>
+                        </button>
+                        <input
+                            class="flex-1 bg-transparent border-none focus:ring-0 text-sm font-body placeholder:text-slate-400 px-2"
+                            placeholder="Type your message here..." type="text" />
+                        <button
+                            class="bg-secondary-container hover:bg-secondary transition-all text-on-secondary-container px-6 py-3 rounded-xl flex items-center gap-2 font-manrope font-bold shadow-lg shadow-secondary-container/20">
+                            <span>Send</span>
+                            <span class="material-symbols-outlined text-sm"
+                                style="font-variation-settings: 'FILL' 1;">send</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Footer -->
+        <footer class="mt-auto px-8 py-6 flex justify-between items-center bg-transparent border-t border-slate-100/50">
+            <p class="font-inter text-[10px] tracking-widest uppercase text-slate-400">
+                Smart Parking Reservation &amp; Vehicle Management System – Driver Panel
+            </p>
+            <div class="flex gap-6">
+                <a class="font-inter text-[10px] tracking-widest uppercase text-slate-400 hover:text-secondary-container transition-colors"
+                    href="#">Terms</a>
+                <a class="font-inter text-[10px] tracking-widest uppercase text-slate-400 hover:text-secondary-container transition-colors"
+                    href="#">Privacy</a>
+                <a class="font-inter text-[10px] tracking-widest uppercase text-slate-400 hover:text-secondary-container transition-colors"
+                    href="#">Support</a>
+            </div>
+        </footer>
+    </main>
+</body>
+
+</html>
