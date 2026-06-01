@@ -11,7 +11,7 @@
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
         rel="stylesheet" />
-     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />   
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
@@ -68,9 +68,12 @@
                 </div>
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="1_Homepage.html">Home</a>
-                    <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="2_Parking_Location_Page.html">Locations</a>
-                    <a class="text-slate-600 hover:text-primary font-medium transition-colors" href="3_Parking_Details_Page.html">Pricing</a>
+                    <a class="text-slate-600 hover:text-primary font-medium transition-colors"
+                        href="1_Homepage.html">Home</a>
+                    <a class="text-slate-600 hover:text-primary font-medium transition-colors"
+                        href="2_Parking_Location_Page.html">Locations</a>
+                    <a class="text-slate-600 hover:text-primary font-medium transition-colors"
+                        href="3_Parking_Details_Page.html">Pricing</a>
                 </div>
                 <!-- Action Buttons -->
                 <div class="flex items-center space-x-4">
@@ -100,7 +103,8 @@
         </header>
         <!-- END: Page Header -->
         <!-- BEGIN: Sign Up Form Card -->
-        <section class="max-w-7xl mx-auto px-4 -mt-10 pb-20 relative -top-10 z-10 flex justify-center" data-purpose="signup-form-section">
+        <section class="max-w-7xl mx-auto px-4 -mt-10 pb-20 relative -top-10 z-10 flex justify-center"
+            data-purpose="signup-form-section">
             <div class="w-full max-w-lg bg-white rounded-theme shadow-xl border border-slate-100 p-8 md:p-10">
                 <form action="#" class="space-y-6">
                     <!-- Full Name -->
@@ -156,69 +160,98 @@
                                 id="vehicle" name="vehicle" placeholder="ABC-1234" type="text" />
                         </div>
                     </div>
-                    <!-- Password -->
+
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1" for="password">Password</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1" for="NID number">NID
+                            Number</label>
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                                </svg>
+
                             </span>
                             <input
-                                class="block w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-theme focus:ring-2 focus:ring-primary focus:border-primary transition-all text-slate-900"
-                                id="password" name="password" placeholder="••••••••" required="" type="password" />
+                                class="block w-full px-3 py-2.5 border border-slate-300 rounded-theme focus:ring-2 focus:ring-primary focus:border-primary transition-all text-slate-900 uppercase"
+                                id="NID number" name="NID number" placeholder="453 645 6767" required="" type="text" />
                         </div>
-                        <!-- Validation Example: Hint -->
-                        <p class="mt-1 text-xs text-slate-500">Password must contain at least 8 characters.</p>
-                    </div>
-                    <!-- Confirm Password -->
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1" for="confirm_password">Confirm
-                            Password</label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                                </svg>
-                            </span>
-                            <input
-                                class="block w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-theme focus:ring-2 focus:ring-primary focus:border-primary transition-all text-slate-900"
-                                id="confirm_password" name="confirm_password" placeholder="••••••••" required=""
-                                type="password" />
-                        </div>
-                    </div>
-                    <!-- Terms Checkbox -->
-                    <div class="flex items-start">
-                        <div class="flex items-center h-5">
-                            <input class="h-4 w-4 text-primary focus:ring-primary border-slate-300 rounded" id="terms"
-                                name="terms" required="" type="checkbox" />
-                        </div>
-                        <div class="ml-3 text-sm">
-                            <label class="text-slate-600" for="terms">I agree to the <a
-                                    class="text-primary hover:underline font-medium" href="#">Terms of Service</a> and
-                                <a class="text-primary hover:underline font-medium" href="#">Privacy Policy</a>.</label>
-                        </div>
-                    </div>
-                    <!-- Register Button -->
-                    <button
-                        class="w-full bg-secondary hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-theme transition-all transform active:scale-[0.98] shadow-lg shadow-emerald-500/30"
-                        type="submit" onclick="window.location.href='6_Successfull_Registration.html'">
-                        Create Account
-                    </button>
-                    <!-- Login Redirect -->
-                    <div class="text-center pt-2">
-                        <p class="text-slate-600 text-sm">
-                            Already have an account?
-                            <a class="text-primary hover:underline font-bold" href="#">Login</a>
-                        </p>
-                    </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1" for="Driving License">Driving License No.</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+
+                                </span>
+                                <input
+                                    class="block w-full px-3 py-2.5 border border-slate-300 rounded-theme focus:ring-2 focus:ring-primary focus:border-primary transition-all text-slate-900 uppercase"
+                                    id="Driving License" name="Driving License" placeholder="453 645 6767" required=""
+                                    type="text" />
+                            </div>
+                            <!-- Password -->
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1"
+                                    for="password">Password</label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                        </svg>
+                                    </span>
+                                    <input
+                                        class="block w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-theme focus:ring-2 focus:ring-primary focus:border-primary transition-all text-slate-900"
+                                        id="password" name="password" placeholder="••••••••" required=""
+                                        type="password" />
+                                </div>
+                                <!-- Validation Example: Hint -->
+                                <p class="mt-1 text-xs text-slate-500">Password must contain at least 8 characters.</p>
+                            </div>
+                            <!-- Confirm Password -->
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1"
+                                    for="confirm_password">Confirm
+                                    Password</label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                        </svg>
+                                    </span>
+                                    <input
+                                        class="block w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-theme focus:ring-2 focus:ring-primary focus:border-primary transition-all text-slate-900"
+                                        id="confirm_password" name="confirm_password" placeholder="••••••••" required=""
+                                        type="password" />
+                                </div>
+                            </div>
+                            <!-- Terms Checkbox -->
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input class="h-4 w-4 text-primary focus:ring-primary border-slate-300 rounded"
+                                        id="terms" name="terms" required="" type="checkbox" />
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label class="text-slate-600" for="terms">I agree to the <a
+                                            class="text-primary hover:underline font-medium" href="#">Terms of
+                                            Service</a> and
+                                        <a class="text-primary hover:underline font-medium" href="#">Privacy
+                                            Policy</a>.</label>
+                                </div>
+                            </div>
+                            <!-- Register Button -->
+                            <button
+                                class="w-full bg-secondary hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-theme transition-all transform active:scale-[0.98] shadow-lg shadow-emerald-500/30"
+                                type="submit" onclick="window.location.href='6_Successfull_Registration.html'">
+                                Create Account
+                            </button>
+                            <!-- Login Redirect -->
+                            <div class="text-center pt-2">
+                                <p class="text-slate-600 text-sm">
+                                    Already have an account?
+                                    <a class="text-primary hover:underline font-bold" href="#">Login</a>
+                                </p>
+                            </div>
                 </form>
             </div>
         </section>
