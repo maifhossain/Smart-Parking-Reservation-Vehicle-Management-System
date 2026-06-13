@@ -1,3 +1,24 @@
+<?php
+session_start();
+include "config.php";
+
+if (!isset($_SESSION['pending_booking'])) {
+    echo "No booking found!";
+    exit;
+}
+
+$slot_id = $_SESSION['pending_booking']['slot_id'];
+
+$sql = "SELECT * FROM parking_slots WHERE id=$slot_id";
+$result = $conn->query($sql);
+
+if (!$result || $result->num_rows == 0) {
+    echo "Slot not found!";
+    exit;
+}
+
+$slot = $result->fetch_assoc();
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -105,59 +126,57 @@
 <body class="bg-background font-body text-on-surface">
     <!-- Sidebar Navigation -->
     <aside class="w-72 bg-white border-r border-slate-200 flex flex-col sticky top-0 h-screen">
-            <div class="p-8">
-                <div class="flex items-center gap-3 mb-10">
-                    <div class="bg-primary rounded-xl p-2 text-white">
-                        <span class="material-symbols-outlined text-2xl">local_parking</span>
-                    </div>
-                    <div>
-                        <h1 class="text-primary font-bold text-lg leading-tight">Smart Parking</h1>
-                        <p class="text-slate-500 text-xs font-medium uppercase tracking-wider">Driver Panel</p>
-                    </div>
+        <div class="p-8">
+            <div class="flex items-center gap-3 mb-10">
+                <div class="bg-primary rounded-xl p-2 text-white">
+                    <span class="material-symbols-outlined text-2xl">local_parking</span>
                 </div>
-                <nav class="flex flex-col gap-2">
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all"
-                        href="1_Driver_Dashboard.html">
-                        <span class="material-symbols-outlined">dashboard</span>
-                        <span class="font-medium">Dashboard</span>
-                    </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
-                        href="2.1_Reserve_Parking.html">
-                        <span
-                            class="material-symbols-outlined text-slate-400 group-hover:text-primary">add_circle</span>
-                        <span class="font-medium">Reserve Parking</span>
-                    </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
-                        href="3_History_Driver.html">
-                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">history</span>
-                        <span class="font-medium">History</span>
-                    </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
-                        href="4.1_Report_Issue_1_Driver.html">
-                        <span
-                            class="material-symbols-outlined text-slate-400 group-hover:text-primary">report_problem</span>
-                        <span class="font-medium">Report Issue</span>
-                    </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
-                        href="5_Chat_Driver.html">
-                        <span
-                            class="material-symbols-outlined text-slate-400 group-hover:text-primary">chat_bubble</span>
-                        <span class="font-medium">Support Chat</span>
-                    </a>
-                </nav>
-            </div>
-            <div class="mt-auto p-8 border-t border-slate-100">
-                <div class="flex items-center gap-3">
-                    <img alt="Profile" class="w-10 h-10 rounded-full object-cover"
-                        data-alt="Professional driver profile photo portrait"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp8iXIrOXCHI83d1Z0wnGiJ1CH8v7uVLdaX6zlW-OrNKzhUZ9CrXTe3zeE6COsVyvy48W3vQx0SzsfledeBEoszaQJWbgEVUvt1K67dpmfJrQ_kpLs7meaCoYcjHq5KOQ1_Ug2LmQvvdS8zfkg4mWgPukpjZ9Pf8Bf9_B3cyX1uLN_iE61-l0FZCyxPog3LON4EGQe1TydAMV0_5hbSGMXd0jVzlbG7FCvkE9Xg7jDm8nor0KV87f3iCenvT3JcwmWfmEokryJs8Uh" />
-                    <div>
-                        <p class="text-sm font-semibold text-slate-900">Alex Johnson</p>
-                        <p class="text-xs text-slate-500">Gold Member</p>
-                    </div>
+                <div>
+                    <h1 class="text-primary font-bold text-lg leading-tight">Smart Parking</h1>
+                    <p class="text-slate-500 text-xs font-medium uppercase tracking-wider">Driver Panel</p>
                 </div>
             </div>
-        </aside>
+            <nav class="flex flex-col gap-2">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all"
+                    href="1_Driver_Dashboard.html">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
+                    href="2.1_Reserve_Parking.html">
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">add_circle</span>
+                    <span class="font-medium">Reserve Parking</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
+                    href="3_History_Driver.html">
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">history</span>
+                    <span class="font-medium">History</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
+                    href="4.1_Report_Issue_1_Driver.html">
+                    <span
+                        class="material-symbols-outlined text-slate-400 group-hover:text-primary">report_problem</span>
+                    <span class="font-medium">Report Issue</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
+                    href="5_Chat_Driver.html">
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">chat_bubble</span>
+                    <span class="font-medium">Support Chat</span>
+                </a>
+            </nav>
+        </div>
+        <div class="mt-auto p-8 border-t border-slate-100">
+            <div class="flex items-center gap-3">
+                <img alt="Profile" class="w-10 h-10 rounded-full object-cover"
+                    data-alt="Professional driver profile photo portrait"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp8iXIrOXCHI83d1Z0wnGiJ1CH8v7uVLdaX6zlW-OrNKzhUZ9CrXTe3zeE6COsVyvy48W3vQx0SzsfledeBEoszaQJWbgEVUvt1K67dpmfJrQ_kpLs7meaCoYcjHq5KOQ1_Ug2LmQvvdS8zfkg4mWgPukpjZ9Pf8Bf9_B3cyX1uLN_iE61-l0FZCyxPog3LON4EGQe1TydAMV0_5hbSGMXd0jVzlbG7FCvkE9Xg7jDm8nor0KV87f3iCenvT3JcwmWfmEokryJs8Uh" />
+                <div>
+                    <p class="text-sm font-semibold text-slate-900">Alex Johnson</p>
+                    <p class="text-xs text-slate-500">Gold Member</p>
+                </div>
+            </div>
+        </div>
+    </aside>
     <!-- Main Content Area -->
     <main class="ml-64 min-h-screen flex flex-col">
         <!-- Top Navigation -->
@@ -216,8 +235,7 @@
                                     <div>
                                         <p class="text-[10px] font-label text-outline uppercase tracking-widest mb-1">
                                             Location</p>
-                                        <h3 class="font-headline font-bold text-lg text-on-surface">City Center Parking
-                                            – Level 2</h3>
+                                        <h3 class="font-headline font-bold text-lg text-on-surface"><?= $slot['location'] ?></h3>
                                     </div>
                                 </div>
                                 <!-- Time -->
@@ -228,8 +246,8 @@
                                     <div>
                                         <p class="text-[10px] font-label text-outline uppercase tracking-widest mb-1">
                                             Time &amp; Date</p>
-                                        <h3 class="font-headline font-bold text-lg text-on-surface">28 March 2026</h3>
-                                        <p class="text-sm text-on-surface-variant">2:00 PM – 4:00 PM</p>
+                                        <h3 class="font-headline font-bold text-lg text-on-surface"><?= $slot['available_date'] ?></h3>
+                                        <p class="text-sm text-on-surface-variant"><?= $slot['time_slot'] ?></p>
                                     </div>
                                 </div>
                                 <!-- Price -->
@@ -240,7 +258,7 @@
                                     <div>
                                         <p class="text-[10px] font-label text-outline uppercase tracking-widest mb-1">
                                             Total Price</p>
-                                        <h3 class="font-headline font-bold text-lg text-on-surface">৳120 <span
+                                        <h3 class="font-headline font-bold text-lg text-on-surface">৳<?= $slot['price'] ?> <span
                                                 class="text-sm font-normal text-outline">/ 2 Hours</span></h3>
                                     </div>
                                 </div>
@@ -268,14 +286,19 @@
                             </div>
                             <!-- Buttons -->
                             <div class="flex items-center gap-4 pt-4">
-                                <button
-                                    class="flex-1 bg-secondary-container text-on-secondary-container py-4 rounded-xl font-headline font-bold text-lg hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 active:scale-95" onclick="window.location.href='2.3_OTP_CheckIn_Page.html'">
-                                    Confirm Reservation
-                                </button>
-                                <button
-                                    class="flex-1 border border-outline-variant/40 text-on-surface-variant py-4 rounded-xl font-headline font-semibold text-lg hover:bg-surface-variant/20 transition-all active:scale-95">
-                                    Back to Reservation
-                                </button>
+                                <form action="book.php" method="POST">
+    <input type="hidden" name="slot_id" value="<?= $slot['id'] ?>">
+    
+    <button type="submit"
+        class="flex-1 bg-secondary-container text-on-secondary-container py-4 rounded-xl font-bold text-lg">
+        Confirm Reservation
+    </button>
+</form>
+                                <button type="button"
+    class="flex-1 border border-outline-variant/40 text-on-surface-variant py-4 rounded-xl font-headline font-semibold text-lg hover:bg-surface-variant/20 transition-all active:scale-95"
+    onclick="location.href='2.1_Reserve_Parking.php'">
+    Back to Reservation
+</button>
                             </div>
                         </div>
                     </div>
@@ -293,11 +316,11 @@
                                 <div>
                                     <p class="text-[10px] font-label text-outline uppercase tracking-widest">Parking
                                         Slot</p>
-                                    <p class="font-headline font-extrabold text-2xl text-primary">A12</p>
+                                    <p class="font-headline font-extrabold text-2xl text-primary"><?= $slot['slot_number'] ?></p>
                                 </div>
                                 <div class="text-right">
                                     <p class="text-[10px] font-label text-outline uppercase tracking-widest">Zone</p>
-                                    <p class="font-headline font-bold text-lg text-on-surface">Zone A</p>
+                                    <p class="font-headline font-bold text-lg text-on-surface"><?= $slot['zone'] ?></p>
                                 </div>
                             </div>
                             <!-- Duration -->

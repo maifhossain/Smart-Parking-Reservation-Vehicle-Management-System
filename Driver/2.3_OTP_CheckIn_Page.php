@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['otp'])) {
+    echo "OTP not found in session";
+}
+?>
+
 <!DOCTYPE html>
 
 <html class="light" lang="en">
@@ -112,59 +120,57 @@
 <body class="bg-surface text-on-surface antialiased">
     <!-- SideNavBar Shell -->
     <aside class="w-72 bg-white border-r border-slate-200 flex flex-col sticky top-0 h-screen">
-            <div class="p-8">
-                <div class="flex items-center gap-3 mb-10">
-                    <div class="bg-primary rounded-xl p-2 text-white">
-                        <span class="material-symbols-outlined text-2xl">local_parking</span>
-                    </div>
-                    <div>
-                        <h1 class="text-primary font-bold text-lg leading-tight">Smart Parking</h1>
-                        <p class="text-slate-500 text-xs font-medium uppercase tracking-wider">Driver Panel</p>
-                    </div>
+        <div class="p-8">
+            <div class="flex items-center gap-3 mb-10">
+                <div class="bg-primary rounded-xl p-2 text-white">
+                    <span class="material-symbols-outlined text-2xl">local_parking</span>
                 </div>
-                <nav class="flex flex-col gap-2">
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all"
-                        href="1_Driver_Dashboard.html">
-                        <span class="material-symbols-outlined">dashboard</span>
-                        <span class="font-medium">Dashboard</span>
-                    </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
-                        href="2.1_Reserve_Parking.html">
-                        <span
-                            class="material-symbols-outlined text-slate-400 group-hover:text-primary">add_circle</span>
-                        <span class="font-medium">Reserve Parking</span>
-                    </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
-                        href="3_History_Driver.html">
-                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">history</span>
-                        <span class="font-medium">History</span>
-                    </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
-                        href="4.1_Report_Issue_1_Driver.html">
-                        <span
-                            class="material-symbols-outlined text-slate-400 group-hover:text-primary">report_problem</span>
-                        <span class="font-medium">Report Issue</span>
-                    </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
-                        href="5_Chat_Driver.html">
-                        <span
-                            class="material-symbols-outlined text-slate-400 group-hover:text-primary">chat_bubble</span>
-                        <span class="font-medium">Support Chat</span>
-                    </a>
-                </nav>
-            </div>
-            <div class="mt-auto p-8 border-t border-slate-100">
-                <div class="flex items-center gap-3">
-                    <img alt="Profile" class="w-10 h-10 rounded-full object-cover"
-                        data-alt="Professional driver profile photo portrait"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp8iXIrOXCHI83d1Z0wnGiJ1CH8v7uVLdaX6zlW-OrNKzhUZ9CrXTe3zeE6COsVyvy48W3vQx0SzsfledeBEoszaQJWbgEVUvt1K67dpmfJrQ_kpLs7meaCoYcjHq5KOQ1_Ug2LmQvvdS8zfkg4mWgPukpjZ9Pf8Bf9_B3cyX1uLN_iE61-l0FZCyxPog3LON4EGQe1TydAMV0_5hbSGMXd0jVzlbG7FCvkE9Xg7jDm8nor0KV87f3iCenvT3JcwmWfmEokryJs8Uh" />
-                    <div>
-                        <p class="text-sm font-semibold text-slate-900">Alex Johnson</p>
-                        <p class="text-xs text-slate-500">Gold Member</p>
-                    </div>
+                <div>
+                    <h1 class="text-primary font-bold text-lg leading-tight">Smart Parking</h1>
+                    <p class="text-slate-500 text-xs font-medium uppercase tracking-wider">Driver Panel</p>
                 </div>
             </div>
-        </aside>
+            <nav class="flex flex-col gap-2">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all"
+                    href="1_Driver_Dashboard.html">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
+                    href="2.1_Reserve_Parking.html">
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">add_circle</span>
+                    <span class="font-medium">Reserve Parking</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
+                    href="3_History_Driver.html">
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">history</span>
+                    <span class="font-medium">History</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
+                    href="4.1_Report_Issue_1_Driver.html">
+                    <span
+                        class="material-symbols-outlined text-slate-400 group-hover:text-primary">report_problem</span>
+                    <span class="font-medium">Report Issue</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
+                    href="5_Chat_Driver.html">
+                    <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">chat_bubble</span>
+                    <span class="font-medium">Support Chat</span>
+                </a>
+            </nav>
+        </div>
+        <div class="mt-auto p-8 border-t border-slate-100">
+            <div class="flex items-center gap-3">
+                <img alt="Profile" class="w-10 h-10 rounded-full object-cover"
+                    data-alt="Professional driver profile photo portrait"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp8iXIrOXCHI83d1Z0wnGiJ1CH8v7uVLdaX6zlW-OrNKzhUZ9CrXTe3zeE6COsVyvy48W3vQx0SzsfledeBEoszaQJWbgEVUvt1K67dpmfJrQ_kpLs7meaCoYcjHq5KOQ1_Ug2LmQvvdS8zfkg4mWgPukpjZ9Pf8Bf9_B3cyX1uLN_iE61-l0FZCyxPog3LON4EGQe1TydAMV0_5hbSGMXd0jVzlbG7FCvkE9Xg7jDm8nor0KV87f3iCenvT3JcwmWfmEokryJs8Uh" />
+                <div>
+                    <p class="text-sm font-semibold text-slate-900">Alex Johnson</p>
+                    <p class="text-xs text-slate-500">Gold Member</p>
+                </div>
+            </div>
+        </div>
+    </aside>
     <!-- TopNavBar Shell -->
     <header
         class="flex items-center justify-between px-8 w-full sticky top-0 z-40 ml-64 max-w-[calc(100%-16rem)] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl h-20 shadow-sm">
@@ -204,46 +210,39 @@
                         <!-- Subtle glass decorative element -->
                         <div class="absolute -top-10 -right-10 w-40 h-40 bg-secondary/5 rounded-full blur-3xl"></div>
                         <div class="relative z-10">
+
+                            <div style="padding:10px;background:#000;color:#fff">
+                                DEBUG OTP: <?= $_SESSION['otp'] ?? 'NOT SET' ?>
+                            </div>
+
+                            
                             <h2 class="text-2xl font-bold text-on-surface font-headline mb-2">Check-in Verification</h2>
                             <p class="text-on-surface-variant mb-8">Please enter your booking credentials to authorize
                                 slot access.</p>
-                            <form class="space-y-6">
-                                <div>
-                                    <label
-                                        class="block text-xs font-bold uppercase tracking-widest text-outline mb-2">Reservation
-                                        ID</label>
-                                    <div class="relative">
-                                        <span
-                                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline"
-                                            data-icon="confirmation_number">confirmation_number</span>
-                                        <input
-                                            class="w-full pl-12 pr-4 py-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface placeholder:text-outline/60"
-                                            placeholder="Enter your reservation ID" type="text" />
-                                    </div>
-                                </div>
+                            <form action="verify_otp.php" method="POST" class="space-y-6">
+                                
                                 <div>
                                     <label
                                         class="block text-xs font-bold uppercase tracking-widest text-outline mb-2">6-Digit
                                         OTP Code</label>
                                     <div class="flex gap-3">
-                                        <input
-                                            class="w-full h-16 text-center text-2xl font-bold bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface"
-                                            maxlength="1" type="text" value="5" />
-                                        <input
-                                            class="w-full h-16 text-center text-2xl font-bold bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface"
-                                            maxlength="1" type="text" value="8" />
-                                        <input
-                                            class="w-full h-16 text-center text-2xl font-bold bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface"
-                                            maxlength="1" placeholder="·" type="text" />
-                                        <input
-                                            class="w-full h-16 text-center text-2xl font-bold bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface"
-                                            maxlength="1" placeholder="·" type="text" />
-                                        <input
-                                            class="w-full h-16 text-center text-2xl font-bold bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface"
-                                            maxlength="1" placeholder="·" type="text" />
-                                        <input
-                                            class="w-full h-16 text-center text-2xl font-bold bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface"
-                                            maxlength="1" placeholder="·" type="text" />
+                                        <input name="otp1" maxlength="1" type="text"
+                                            class="w-full h-16 text-center text-2xl font-bold bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface">
+
+                                        <input name="otp2" maxlength="1" type="text"
+                                            class="w-full h-16 text-center text-2xl font-bold bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface">
+
+                                        <input name="otp3" maxlength="1" type="text"
+                                            class="w-full h-16 text-center text-2xl font-bold bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface">
+
+                                        <input name="otp4" maxlength="1" type="text"
+                                            class="w-full h-16 text-center text-2xl font-bold bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface">
+
+                                        <input name="otp5" maxlength="1" type="text"
+                                            class="w-full h-16 text-center text-2xl font-bold bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface">
+
+                                        <input name="otp6" maxlength="1" type="text"
+                                            class="w-full h-16 text-center text-2xl font-bold bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all text-on-surface">
                                     </div>
                                     <p class="mt-4 text-sm text-on-surface-variant">Didn't receive code? <button
                                             class="text-on-secondary-container font-semibold hover:underline"
@@ -366,6 +365,24 @@
             © 2024 Urban Navigator Premium Parking. All rights reserved.
         </div>
     </footer>
+
+    <script>
+        document.querySelectorAll('input[name^="otp"]').forEach((input, index, arr) => {
+            input.addEventListener('input', () => {
+                if (input.value.length === 1 && arr[index + 1]) {
+                    arr[index + 1].focus();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        console.log("OTP: <?= $_SESSION['otp'] ?? 'NOT SET' ?>");
+    </script>
+
+    <div style="padding:10px;background:#000;color:#fff">
+        DEBUG OTP: <?= $_SESSION['otp'] ?? 'NOT SET' ?>
+    </div>
 </body>
 
 </html>

@@ -16,13 +16,13 @@
         rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
-            
+
             theme: {
                 extend: {
                     colors: {
                         "primary": "#1e3b8a",
                         "background-light": "#f8fafc",
-                       
+
                     },
                     fontFamily: {
                         "display": ["Inter", "sans-serif"]
@@ -72,18 +72,18 @@
                         <span class="font-medium">Dashboard</span>
                     </a>
                     <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
-                        href="2.1_Reserve_Parking.html">
+                        href="2.1_Reserve_Parking.php">
                         <span
                             class="material-symbols-outlined text-slate-400 group-hover:text-primary">add_circle</span>
                         <span class="font-medium">Reserve Parking</span>
                     </a>
                     <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
-                        href="3_History_Driver.html">
+                        href="3_History_Driver.php">
                         <span class="material-symbols-outlined text-slate-400 group-hover:text-primary">history</span>
                         <span class="font-medium">History</span>
                     </a>
                     <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-slate-50 transition-all group"
-                        href="4.1_Report_Issue_1_Driver.html">
+                        href="4.1_Report_Issue_1_Driver.php">
                         <span
                             class="material-symbols-outlined text-slate-400 group-hover:text-primary">report_problem</span>
                         <span class="font-medium">Report Issue</span>
@@ -230,7 +230,7 @@
                             </div>
                             <h4 class="text-lg font-bold text-slate-900 mb-1">Reserve Parking</h4>
                             <p class="text-sm text-slate-500 mb-4">Find and book a premium spot in seconds.</p>
-                            <button
+                            <button onclick="window.location.href='2.1_Reserve_Parking.html';"
                                 class="w-full bg-orange-500/10 text-orange-600 group-hover:bg-orange-500 group-hover:text-white py-2 rounded-lg font-bold transition-all flex items-center justify-center gap-2">
                                 Book Now <span class="material-symbols-outlined text-sm">arrow_forward</span>
                             </button>
@@ -244,7 +244,7 @@
                             </div>
                             <h4 class="text-lg font-bold text-slate-900 mb-1">Parking History</h4>
                             <p class="text-sm text-slate-500 mb-4">Review past receipts and parking locations.</p>
-                            <button
+                            <button onclick="window.location.href='3_History_Driver.html'"
                                 class="w-full bg-slate-100 text-slate-600 group-hover:bg-primary group-hover:text-white py-2 rounded-lg font-bold transition-all flex items-center justify-center gap-2">
                                 View Logs <span class="material-symbols-outlined text-sm">history</span>
                             </button>
@@ -258,7 +258,7 @@
                             </div>
                             <h4 class="text-lg font-bold text-slate-900 mb-1">Report Issue</h4>
                             <p class="text-sm text-slate-500 mb-4">Spotted a problem or need assistance?</p>
-                            <button
+                            <button onclick="window.location.href='4.1_Report_Issue_1_Driver.html'"
                                 class="w-full bg-slate-100 text-slate-600 group-hover:bg-red-500 group-hover:text-white py-2 rounded-lg font-bold transition-all flex items-center justify-center gap-2">
                                 Get Help <span class="material-symbols-outlined text-sm">flag</span>
                             </button>
@@ -272,7 +272,7 @@
                             </div>
                             <h4 class="text-lg font-bold text-slate-900 mb-1">Live Support</h4>
                             <p class="text-sm text-slate-500 mb-4">Instant chat with our facility managers.</p>
-                            <button
+                            <button onclick="window.location.href='5_Chat_Driver.html'"
                                 class="w-full bg-slate-100 text-slate-600 group-hover:bg-emerald-500 group-hover:text-white py-2 rounded-lg font-bold transition-all flex items-center justify-center gap-2">
                                 Start Chat <span class="material-symbols-outlined text-sm">send</span>
                             </button>
