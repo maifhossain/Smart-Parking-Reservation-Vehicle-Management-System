@@ -1,3 +1,55 @@
+<?php
+include "../db.php";
+
+/* =========================
+   SAVE / UPDATE PRICING
+========================= */
+if(isset($_POST['save_pricing'])) {
+
+    $location_id = $_POST['location_id'];
+    $price = $_POST['price_per_hour'];
+    $peak = $_POST['peak_price'];
+
+    /* =========================
+       1. pricing_rules INSERT / UPDATE
+    ========================= */
+    $check = mysqli_query($conn,
+        "SELECT * FROM pricing_rules WHERE location_id='$location_id'"
+    );
+
+    if(mysqli_num_rows($check) > 0) {
+
+        mysqli_query($conn,
+            "UPDATE pricing_rules 
+             SET price_per_hour='$price',
+                 peak_price='$peak',
+                 status='Active'
+             WHERE location_id='$location_id'"
+        );
+
+    } else {
+
+        mysqli_query($conn,
+            "INSERT INTO pricing_rules 
+            (location_id, price_per_hour, peak_price, status)
+            VALUES 
+            ('$location_id', '$price', '$peak', 'Active')"
+        );
+    }
+
+    /* =========================
+       2. SYNC with parking_locations
+       (IMPORTANT: column = price)
+    ========================= */
+    mysqli_query($conn,
+        "UPDATE parking_locations 
+         SET price='$price'
+         WHERE id='$location_id'"
+    );
+
+}
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -16,7 +68,7 @@
         rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
-            
+
             theme: {
                 extend: {
                     colors: {
@@ -24,7 +76,7 @@
                         "secondary": "#10B981",
                         "accent": "#F59E0B",
                         "background-light": "#F8FAFC",
-                        
+
                     },
                     fontFamily: {
                         "display": ["Inter", "sans-serif"]
@@ -53,8 +105,7 @@
 <body class="bg-background-light  text-slate-900  font-display">
     <div class="flex min-h-screen">
         <!-- Sidebar -->
-        <aside
-            class="w-72 bg-white  border-r border-slate-200  flex flex-col fixed h-full">
+        <aside class="w-72 bg-white  border-r border-slate-200  flex flex-col fixed h-full">
             <div class="p-6 flex items-center gap-3">
                 <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
                     <span class="material-symbols-outlined">local_parking</span>
@@ -66,27 +117,27 @@
             </div>
             <nav class="flex-1 px-4 py-4 space-y-1">
                 <a class="flex items-center gap-3 px-3 py-2.5 text-slate-600  hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors group"
-                    href="1_Admin_Dashboard.html">
+                    href="1_Admin_Dashboard.php">
                     <span class="material-symbols-outlined">dashboard</span>
                     <span class="text-sm font-semibold">Dashboard</span>
                 </a>
                 <a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors group"
-                    href="2_Parking_Manager.html">
+                    href="2_Parking_Manager.php">
                     <span class="material-symbols-outlined">badge</span>
                     <span class="text-sm font-semibold">Parking Managers</span>
                 </a>
                 <a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors group"
-                    href="3_Parking_Locations.html">
+                    href="3_Parking_Locations.php">
                     <span class="material-symbols-outlined">distance</span>
                     <span class="text-sm font-semibold">Parking Locations</span>
                 </a>
                 <a class="flex items-center gap-3 px-3 py-2.5 text-slate-600  hover:bg-slate-50  rounded-lg transition-colors group"
-                    href="4_Drivers_Approval.html">
+                    href="4_Drivers_Approval.php">
                     <span class="material-symbols-outlined">verified_user</span>
                     <span class="text-sm font-semibold">Drivers Approval</span>
                 </a>
                 <a class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary rounded-lg transition-colors group"
-                    href="5_Pricing_Rules.html">
+                    href="5_Pricing_Rules.php">
                     <span class="material-symbols-outlined">payments</span>
                     <span class="text-sm font-semibold">Pricing Rules</span>
                 </a>
@@ -136,25 +187,27 @@
             <!-- Page Content -->
             <div class="p-8 max-w-[1100px] w-full">
                 <!-- Pricing Configuration Form Card -->
-                <div
-                    class="bg-white  rounded-xl shadow-sm border border-slate-200  overflow-hidden mb-8">
+                <div class="bg-white  rounded-xl shadow-sm border border-slate-200  overflow-hidden mb-8">
                     <div class="p-6 border-b border-slate-100  flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary">edit_calendar</span>
                         <h3 class="font-bold text-lg">Pricing Configuration Form</h3>
                     </div>
-                    <div class="p-8">
+                    <form method="POST" class="p-8">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             <div class="col-span-full">
-                                <label
-                                    class="block text-sm font-semibold text-slate-700  mb-2">Select
+                                <label class="block text-sm font-semibold text-slate-700  mb-2">Select
                                     Location</label>
                                 <div class="relative">
-                                    <select
-                                        class="w-full bg-slate-50  border border-slate-200  rounded-lg h-12 px-4 appearance-none focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-slate-900 dark:text-white transition-all">
-                                        <option>Downtown Parking</option>
-                                        <option>City Mall Parking</option>
-                                        <option>Airport Parking</option>
-                                        <option>Central Park Parking</option>
+                                    <select name="location_id"
+                                        class="w-full bg-slate-50 border border-slate-200 rounded-lg h-12 px-4">
+                                        <?php
+                                        $loc = mysqli_query($conn, "SELECT * FROM parking_locations");
+                                        while ($l = mysqli_fetch_assoc($loc)) {
+                                            ?>
+                                            <option value="<?php echo $l['id']; ?>">
+                                                <?php echo $l['location_name']; ?>
+                                            </option>
+                                        <?php } ?>
                                     </select>
                                     <span
                                         class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">expand_more</span>
@@ -166,7 +219,7 @@
                                 <div class="relative">
                                     <span
                                         class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">payments</span>
-                                    <input
+                                    <input name="price_per_hour"
                                         class="w-full bg-slate-50  border border-slate-200  rounded-lg h-12 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-slate-900 dark:text-white transition-all"
                                         placeholder="Enter base hourly price" type="text" />
                                 </div>
@@ -177,7 +230,7 @@
                                 <div class="relative">
                                     <span
                                         class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">trending_up</span>
-                                    <input
+                                    <input name="peak_price"
                                         class="w-full bg-slate-50  border border-slate-200  rounded-lg h-12 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-slate-900 dark:text-white transition-all"
                                         placeholder="Enter peak hour rate" type="text" />
                                 </div>
@@ -192,125 +245,86 @@
                             </div>
                         </div>
                         <div class="flex justify-end">
-                            <button
+                            <button name="save_pricing" type="submit"
                                 class="bg-accent hover:bg-accent/90 text-white font-bold py-3 px-8 rounded-lg flex items-center gap-2 transition-all shadow-lg shadow-accent/20">
                                 <span class="material-symbols-outlined">save</span>
                                 Save Pricing Rules
                             </button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-                <!-- Current Pricing Table Card -->
-                <div
-                    class="bg-white  rounded-xl shadow-sm border border-slate-200  overflow-hidden">
-                    <div class="p-6 border-b border-slate-100  flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-secondary">table_chart</span>
-                            <h3 class="font-bold text-lg">Current Pricing Summary</h3>
-                        </div>
-                        <button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
-                            <span class="material-symbols-outlined text-[18px]">download</span>
-                            Export CSV
-                        </button>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-slate-50 dark:bg-slate-800/50">
-                                <tr>
-                                    <th class="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                        Location</th>
-                                    <th class="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Base
-                                        Price</th>
-                                    <th class="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Peak
-                                        Price</th>
-                                    <th
-                                        class="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">
-                                        Status</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                    <td class="px-8 py-5">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center text-primary">
-                                                <span class="material-symbols-outlined text-[18px]">location_on</span>
-                                            </div>
-                                            <span class="font-semibold text-slate-900 dark:text-white">Downtown
-                                                Parking</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-5">
-                                        <span class="text-slate-600 dark:text-slate-400 font-medium">$3.00/hr</span>
-                                    </td>
-                                    <td class="px-8 py-5">
-                                        <span class="text-accent font-bold">$5.00/hr</span>
-                                    </td>
-                                    <td class="px-8 py-5 text-right">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-secondary/10 text-secondary">Active</span>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                    <td class="px-8 py-5">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center text-primary">
-                                                <span class="material-symbols-outlined text-[18px]">shopping_bag</span>
-                                            </div>
-                                            <span class="font-semibold text-slate-900 dark:text-white">City Mall
-                                                Parking</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-5">
-                                        <span class="text-slate-600 dark:text-slate-400 font-medium">$2.50/hr</span>
-                                    </td>
-                                    <td class="px-8 py-5">
-                                        <span class="text-accent font-bold">$4.00/hr</span>
-                                    </td>
-                                    <td class="px-8 py-5 text-right">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-secondary/10 text-secondary">Active</span>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                    <td class="px-8 py-5">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center text-primary">
-                                                <span class="material-symbols-outlined text-[18px]">flight</span>
-                                            </div>
-                                            <span class="font-semibold text-slate-900 dark:text-white">Airport
-                                                Parking</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-5">
-                                        <span class="text-slate-600 dark:text-slate-400 font-medium">$4.00/hr</span>
-                                    </td>
-                                    <td class="px-8 py-5">
-                                        <span class="text-accent font-bold">$6.00/hr</span>
-                                    </td>
-                                    <td class="px-8 py-5 text-right">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-secondary/10 text-secondary">Active</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- Footer -->
-                <footer
-                    class="mt-12 py-6 border-t border-slate-200  flex justify-between items-center text-slate-400 text-sm">
-                    <p>Smart Parking Reservation &amp; Vehicle Management System – Admin Panel</p>
-                    <div class="flex gap-6">
-                        <a class="hover:text-primary" href="#">Help Center</a>
-                        <a class="hover:text-primary" href="#">API Docs</a>
-                        <a class="hover:text-primary" href="#">Terms of Service</a>
-                    </div>
-                </footer>
             </div>
-        </main>
+    </div>
+    <!-- Current Pricing Table Card -->
+    <div class="bg-white  rounded-xl shadow-sm border border-slate-200  overflow-hidden">
+        <div class="p-6 border-b border-slate-100  flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-secondary">table_chart</span>
+                <h3 class="font-bold text-lg">Current Pricing Summary</h3>
+            </div>
+            <button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+                <span class="material-symbols-outlined text-[18px]">download</span>
+                Export CSV
+            </button>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead class="bg-slate-50 dark:bg-slate-800/50">
+                    <tr>
+                        <th class="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Location</th>
+                        <th class="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Base
+                            Price</th>
+                        <th class="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Peak
+                            Price</th>
+                        <th class="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">
+                            Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $query = mysqli_query($conn, "
+SELECT pr.*, pl.location_name 
+FROM pricing_rules pr
+JOIN parking_locations pl ON pr.location_id = pl.id
+");
+
+                    while ($row = mysqli_fetch_assoc($query)) {
+                        ?>
+                        <tr>
+                            <td class="px-8 py-5">
+                                <?php echo $row['location_name']; ?>
+                            </td>
+
+                            <td class="px-8 py-5">
+                                $<?php echo $row['price_per_hour']; ?>/hr
+                            </td>
+
+                            <td class="px-8 py-5">
+                                $<?php echo $row['peak_price']; ?>/hr
+                            </td>
+
+                            <td class="px-8 py-5 text-right">
+                                <span class="px-2 py-1 rounded bg-green-100 text-green-600 text-xs">
+                                    <?php echo $row['status']; ?>
+                                </span>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="mt-12 py-6 border-t border-slate-200  flex justify-between items-center text-slate-400 text-sm">
+        <p>Smart Parking Reservation &amp; Vehicle Management System – Admin Panel</p>
+        <div class="flex gap-6">
+            <a class="hover:text-primary" href="#">Help Center</a>
+            <a class="hover:text-primary" href="#">API Docs</a>
+            <a class="hover:text-primary" href="#">Terms of Service</a>
+        </div>
+    </footer>
+    </div>
+    </main>
     </div>
 </body>
 

@@ -154,18 +154,18 @@ if (isset($_GET['delete'])) {
                         <span class="text-sm font-medium">Parking Managers</span>
                     </a>
                     <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
-                        href="3_Parking_Locations.html">
+                        href="3_Parking_Locations.php">
                         <span class="material-symbols-outlined text-[22px]">location_on</span>
                         <span class="text-sm font-medium">Parking Locations</span>
                     </a>
                     <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
-                        href="4_Drivers_Approval.html">
+                        href="4_Drivers_Approval.php">
                         <span class="material-symbols-outlined text-[22px]"
                             style="font-variation-settings: 'FILL' 1">verified_user</span>
                         <span class="text-sm font-semibold">Drivers Approval</span>
                     </a>
                     <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
-                        href="5_Pricing_Rules.html">
+                        href="5_Pricing_Rules.php">
                         <span class="material-symbols-outlined text-[22px]">payments</span>
                         <span class="text-sm font-medium">Pricing Rules</span>
                     </a>
