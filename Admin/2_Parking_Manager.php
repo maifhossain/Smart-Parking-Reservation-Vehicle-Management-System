@@ -1,3 +1,72 @@
+<?php
+include __DIR__ . "/../config.php";
+
+/* ✅ ADD MANAGER */
+if (isset($_POST['add_manager'])) {
+
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $nid = $_POST['nid'];
+    $address = $_POST['address'];
+    $phone = $_POST['phone'];
+    $location = $_POST['location'];
+
+    $conn->query("
+        INSERT INTO managers (name, email, nid, address, phone, location)
+        VALUES ('$name', '$email', '$nid', '$address', '$phone', '$location')
+    ");
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+/* ✏️ UPDATE MANAGER */
+if (isset($_POST['update_manager'])) {
+
+    $id = $_POST['id'];
+
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $nid = $_POST['nid'];
+    $address = $_POST['address'];
+    $phone = $_POST['phone'];
+    $location = $_POST['location'];
+
+    $conn->query("
+        UPDATE managers
+        SET
+            name='$name',
+            email='$email',
+            nid='$nid',
+            address='$address',
+            phone='$phone',
+            location='$location'
+        WHERE id=$id
+    ");
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+$editData = null;
+
+if (isset($_GET['edit'])) {
+    $id = (int) $_GET['edit'];
+    $res = $conn->query("SELECT * FROM managers WHERE id=$id");
+    $editData = $res->fetch_assoc();
+}
+/* ❌ DELETE MANAGER (OUTSIDE) */
+if (isset($_GET['delete'])) {
+
+    $id = (int) $_GET['delete'];
+
+    $conn->query("DELETE FROM managers WHERE id = $id");
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 
 <html class="light" lang="en">
@@ -75,12 +144,12 @@
                 </div>
                 <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
                     <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
-                        href="1_Admin_Dashboard.html">
+                        href="1_Admin_Dashboard.php">
                         <span class="material-symbols-outlined text-[22px]">dashboard</span>
                         <span class="text-sm font-medium">Dashboard</span>
                     </a>
                     <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary transition-colors"
-                        href="2_Parking_Manager.html">
+                        href="2_Parking_Manager.php">
                         <span class="material-symbols-outlined text-[22px]">manage_accounts</span>
                         <span class="text-sm font-medium">Parking Managers</span>
                     </a>
@@ -135,11 +204,7 @@
                             <p class="text-slate-500  mt-1">Add, edit, or remove parking managers
                                 responsible for managing parking locations.</p>
                         </div>
-                        <button
-                            class="bg-gradient-accent hover:opacity-90 text-white px-5 py-2.5 rounded-lg flex items-center gap-2 font-bold shadow-lg transition-all transform active:scale-95">
-                            <span class="material-symbols-outlined">add</span>
-                            Add Manager
-                        </button>
+
                     </div>
                 </header>
                 <div class="p-8 space-y-8">
@@ -170,87 +235,62 @@
                                         Action</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100 d">
-                                <!-- Row 1 -->
-                                <tr class="hover:bg-slate-50  transition-colors">
+                            <?php
+                            $result = $conn->query("SELECT * FROM managers ORDER BY id DESC");
+
+                            while ($row = $result->fetch_assoc()) {
+                                ?>
+                                <tr class="hover:bg-slate-50 transition-colors">
+
                                     <td class="px-6 py-4 flex items-center gap-3">
                                         <div
                                             class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
-                                            JC</div>
-                                        <span class="text-sm font-semibold">John Carter</span>
+                                            <?php echo strtoupper(substr($row['name'], 0, 2)); ?>
+                                        </div>
+                                        <span class="text-sm font-semibold">
+                                            <?php echo $row['name']; ?>
+                                        </span>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">john@example.com</td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">544 767 899</td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">Badd Notun Bazar</td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">01855726672</td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">Downtown Plaza</td>
+
+                                    <td class="px-6 py-4 text-sm text-slate-600">
+                                        <?php echo $row['email']; ?>
+                                    </td>
+
+                                    <td class="px-6 py-4 text-sm text-slate-600">
+                                        <?php echo $row['nid']; ?>
+                                    </td>
+
+                                    <td class="px-6 py-4 text-sm text-slate-600">
+                                        <?php echo $row['address']; ?>
+                                    </td>
+
+                                    <td class="px-6 py-4 text-sm text-slate-600">
+                                        <?php echo $row['phone']; ?>
+                                    </td>
+
+                                    <td class="px-6 py-4 text-sm text-slate-600">
+                                        <?php echo $row['location']; ?>
+                                    </td>
+
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex justify-end gap-2">
-                                            <button
-                                                class="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-md transition-all">
+
+                                            <a href="?edit=<?php echo $row['id']; ?>"
+                                                class="p-1.5 text-slate-400 hover:text-primary">
                                                 <span class="material-symbols-outlined text-[20px]">edit</span>
-                                            </button>
-                                            <button
+                                            </a>
+
+                                            <a href="?delete=<?php echo $row['id']; ?>"
+                                                onclick="return confirm('Are you sure you want to delete this manager?');"
                                                 class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-all">
                                                 <span class="material-symbols-outlined text-[20px]">delete</span>
-                                            </button>
+                                            </a>
+
                                         </div>
                                     </td>
+
                                 </tr>
-                                <!-- Row 2 -->
-                                <tr class="hover:bg-slate-50  transition-colors">
-                                    <td class="px-6 py-4 flex items-center gap-3">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-secondary font-bold text-xs">
-                                            SA</div>
-                                        <span class="text-sm font-semibold">Sarah Ahmed</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">sarah@example.com</td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">533 565 555</td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">Bata Signal, Elephant Road</td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">0176106433</td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">North Wing Terminal</td>
-                                    <td class="px-6 py-4 text-right">
-                                        <div class="flex justify-end gap-2">
-                                            <button
-                                                class="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-md transition-all">
-                                                <span class="material-symbols-outlined text-[20px]">edit</span>
-                                            </button>
-                                            <button
-                                                class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-all">
-                                                <span class="material-symbols-outlined text-[20px]">delete</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- Row 3 -->
-                                <tr class="hover:bg-slate-50  transition-colors">
-                                    <td class="px-6 py-4 flex items-center gap-3">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-accent-end/10 flex items-center justify-center text-accent-end font-bold text-xs">
-                                            ML</div>
-                                        <span class="text-sm font-semibold">Michael Lee</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-slate-600">michael@example.com
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">758 758 857</td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">Bashundhara</td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">01847475758</td>
-                                    <td class="px-6 py-4 text-sm text-slate-600 ">East Side Garage</td>
-                                    <td class="px-6 py-4 text-right">
-                                        <div class="flex justify-end gap-2">
-                                            <button
-                                                class="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-md transition-all">
-                                                <span class="material-symbols-outlined text-[20px]">edit</span>
-                                            </button>
-                                            <button
-                                                class="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-all">
-                                                <span class="material-symbols-outlined text-[20px]">delete</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <?php } ?>
                         </table>
                         <div
                             class="p-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
@@ -267,88 +307,115 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
                         <!-- Add Manager Section (Modal Equivalent) -->
                         <div class="bg-white  rounded-xl shadow-lg border border-slate-200 p-8">
-                            <div class="flex items-center gap-2 mb-6">
-                                <span class="material-symbols-outlined text-primary">person_add</span>
-                                <h3 class="text-lg font-bold">Add New Manager</h3>
-                            </div>
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-slate-700 mb-1">Manager
-                                        Name</label>
-                                    <input
-                                        class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary h-11"
-                                        placeholder="e.g. Robert Smith" type="text" />
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-slate-700 mb-1">Email
-                                        Address</label>
-                                    <input
-                                        class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary h-11"
-                                        placeholder="robert@parking.com" type="email" />
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-slate-700 mb-1">
-                                        NID No.
-                                    </label>
-                                    <input
-                                        class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary h-11"
-                                        placeholder="Enter NID Number" type="text" />
+                            <form method="POST">
+
+                                <input type="hidden" name="id" value="<?php echo $editData['id'] ?? ''; ?>">
+
+                                <div class="flex items-center gap-2 mb-6">
+                                    <span class="material-symbols-outlined text-primary">person_add</span>
+
+                                    <h3 class="text-lg font-bold">
+                                        <?php echo $editData ? 'Edit Manager' : 'Add New Manager'; ?>
+                                    </h3>
                                 </div>
 
-                                <div>
-                                    <label class="block text-sm font-medium text-slate-700 mb-1">
-                                        Address
-                                    </label>
-                                    <input
-                                        class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary h-11"
-                                        placeholder="Enter Address" type="text" />
-                                </div>
-                                <div class="grid grid-cols-2 gap-4">
+                                <div class="space-y-4">
+
                                     <div>
-                                        <label class="block text-sm font-medium text-slate-700 mb-1">Phone
-                                            Number</label>
-                                        <input
+                                        <label class="block text-sm font-medium text-slate-700 mb-1">
+                                            Manager Name
+                                        </label>
+
+                                        <input type="text" name="name" value="<?php echo $editData['name'] ?? ''; ?>"
                                             class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary h-11"
-                                            placeholder="+1 234 567 890" type="tel" />
+                                            placeholder="e.g. Robert Smith">
                                     </div>
+
                                     <div>
-                                        <label class="block text-sm font-medium text-slate-700 mb-1">Assigned
-                                            Location</label>
-                                        <select
-                                            class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary h-11">
-                                            <option>Downtown Plaza</option>
-                                            <option>North Wing Terminal</option>
-                                            <option>East Side Garage</option>
-                                        </select>
+                                        <label class="block text-sm font-medium text-slate-700 mb-1">
+                                            Email Address
+                                        </label>
+
+                                        <input type="email" name="email" value="<?php echo $editData['email'] ?? ''; ?>"
+                                            class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary h-11"
+                                            placeholder="robert@parking.com">
                                     </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-slate-700 mb-1">
+                                            NID No.
+                                        </label>
+
+                                        <input type="text" name="nid" value="<?php echo $editData['nid'] ?? ''; ?>"
+                                            class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary h-11"
+                                            placeholder="Enter NID Number">
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-medium text-slate-700 mb-1">
+                                            Address
+                                        </label>
+
+                                        <input type="text" name="address"
+                                            value="<?php echo $editData['address'] ?? ''; ?>"
+                                            class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary h-11"
+                                            placeholder="Enter Address">
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-4">
+
+                                        <div>
+                                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                                Phone Number
+                                            </label>
+
+                                            <input type="tel" name="phone"
+                                                value="<?php echo $editData['phone'] ?? ''; ?>"
+                                                class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary h-11"
+                                                placeholder="+8801XXXXXXXXX">
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                                Assigned Location
+                                            </label>
+
+                                            <select name="location"
+                                                class="w-full rounded-lg border-slate-200 focus:border-primary focus:ring-primary h-11">
+
+                                                <option value="Downtown Plaza" <?php if (($editData['location'] ?? '') == 'Downtown Plaza')
+                                                    echo 'selected'; ?>>
+                                                    Downtown Plaza
+                                                </option>
+
+                                                <option value="North Wing Terminal" <?php if (($editData['location'] ?? '') == 'North Wing Terminal')
+                                                    echo 'selected'; ?>>
+                                                    North Wing Terminal
+                                                </option>
+
+                                                <option value="East Side Garage" <?php if (($editData['location'] ?? '') == 'East Side Garage')
+                                                    echo 'selected'; ?>>
+                                                    East Side Garage
+                                                </option>
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <button type="submit"
+                                        name="<?php echo $editData ? 'update_manager' : 'add_manager'; ?>"
+                                        class="w-full bg-primary text-white font-bold py-2.5 rounded-lg">
+
+                                        <?php echo $editData ? 'Update Manager' : 'Add Manager'; ?>
+
+                                    </button>
+
                                 </div>
-                                <div class="flex gap-3 pt-4">
-                                    <button
-                                        class="flex-1 bg-primary text-white font-bold py-2.5 rounded-lg hover:bg-primary/90 transition-all">Add
-                                        Manager</button>
-                                    <button
-                                        class="flex-1 bg-slate-100 text-slate-700 font-bold py-2.5 rounded-lg hover:bg-slate-200 transition-all">Cancel</button>
-                                </div>
-                            </div>
+
+                            </form>
                         </div>
-                        <!-- Delete Confirmation Card -->
-                        <div
-                            class="bg-white rounded-xl shadow-lg border border-slate-200 p-8 flex flex-col justify-center items-center text-center">
-                            <div
-                                class="w-16 h-16 bg-cta/10 rounded-full flex items-center justify-center text-cta mb-4">
-                                <span class="material-symbols-outlined text-[32px]">warning</span>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2">Confirm Removal</h3>
-                            <p class="text-slate-500  mb-8 max-w-[320px]">Are you sure you want to remove
-                                this parking manager? This action cannot be undone.</p>
-                            <div class="flex gap-3 w-full">
-                                <button
-                                    class="flex-1 bg-slate-100 text-slate-700 font-bold py-2.5 rounded-lg hover:bg-slate-200 transition-all">Cancel</button>
-                                <button
-                                    class="flex-1 bg-cta text-white font-bold py-2.5 rounded-lg hover:opacity-90 transition-all">Confirm
-                                    Remove</button>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <!-- Footer -->

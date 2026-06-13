@@ -1,3 +1,26 @@
+<?php
+include __DIR__ . "/../config.php";
+
+$driversCount = $conn->query("SELECT COUNT(*) as total FROM users");
+$totalDrivers = $driversCount->fetch_assoc()['total'];
+
+$result = $conn->query("
+SELECT 
+    b.id,
+    u.fullname,
+    u.vehicle_plate,
+    p.location AS parking_location,
+    b.start_time,
+    b.end_time,
+    b.status
+FROM bookings b
+JOIN users u ON b.user_id = u.id
+JOIN parking_slots p ON b.slot_id = p.id
+ORDER BY b.id DESC
+LIMIT 10
+");
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -63,12 +86,12 @@
             </div>
             <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
                 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary transition-colors"
-                    href="1_Admin_Dashboard.html">
+                    href="1_Admin_Dashboard.php">
                     <span class="material-symbols-outlined text-[22px]">dashboard</span>
                     <span class="text-sm font-medium">Dashboard</span>
                 </a>
                 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600  hover:bg-slate-50  transition-colors"
-                    href="2_Parking_Manager.html">
+                    href="2_Parking_Manager.php">
                     <span class="material-symbols-outlined text-[22px]">manage_accounts</span>
                     <span class="text-sm font-medium">Parking Managers</span>
                 </a>
@@ -152,7 +175,9 @@
                                 class="text-emerald-500 text-xs font-bold bg-emerald-50 px-2 py-1 rounded-full">+12%</span>
                         </div>
                         <p class="text-slate-500  text-sm font-medium">Total Drivers</p>
-                        <p class="text-3xl font-bold mt-1 text-slate-800 ">1,248</p>
+                        <p class="text-3xl font-bold mt-1 text-slate-800 ">
+    <?= $conn->query("SELECT COUNT(*) AS total FROM users")->fetch_assoc()['total']; ?>
+</p>
                     </div>
                     <div class="bg-white  p-6 rounded-xl shadow-sm border border-slate-200 ">
                         <div class="flex items-center justify-between mb-4">
@@ -163,7 +188,9 @@
                                 class="text-emerald-500 text-xs font-bold bg-emerald-50 px-2 py-1 rounded-full">+5%</span>
                         </div>
                         <p class="text-slate-500  text-sm font-medium">Total Reservations</p>
-                        <p class="text-3xl font-bold mt-1 text-slate-800">3,562</p>
+                        <p class="text-3xl font-bold mt-1 text-slate-800">
+    <?= $conn->query("SELECT COUNT(*) AS total FROM bookings")->fetch_assoc()['total']; ?>
+</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                         <div class="flex items-center justify-between mb-4">
@@ -274,79 +301,57 @@
                                     <th class="px-8 py-4">Status</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100 ">
-                                <tr>
-                                    <td class="px-8 py-5" colspan="5">
-                                        <h3 class="text-lg font-bold text-slate-800">Recent Reservations</h3>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-8 py-5">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">
-                                                AR</div>
-                                            <span class="font-medium text-slate-800">Ahmed
-                                                Rahman</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-5 text-slate-600  font-mono text-sm">DHK-3456
-                                    </td>
-                                    <td class="px-8 py-5 text-slate-600 ">City Center Parking</td>
-                                    <td class="px-8 py-5 text-slate-600">2:00 PM – 4:00 PM</td>
-                                    <td class="px-8 py-5">
-                                        <span
-                                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100  text-emerald-600  text-xs font-bold uppercase tracking-wide">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                            Confirmed
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-8 py-5">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">
-                                                SM</div>
-                                            <span class="font-medium text-slate-800 ">Sarah
-                                                Malik</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-5 text-slate-600  font-mono text-sm">K-9022
-                                    </td>
-                                    <td class="px-8 py-5 text-slate-600 ">Downtown Square</td>
-                                    <td class="px-8 py-5 text-slate-600">10:30 AM – 1:30 PM</td>
-                                    <td class="px-8 py-5">
-                                        <span
-                                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100  text-emerald-600  text-xs font-bold uppercase tracking-wide">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                            Confirmed
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-8 py-5">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">
-                                                JL</div>
-                                            <span class="font-medium text-slate-800 ">John
-                                                Lawson</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-8 py-5 text-slate-600  font-mono text-sm">CA-7788
-                                    </td>
-                                    <td class="px-8 py-5 text-slate-600 ">Mall Underground</td>
-                                    <td class="px-8 py-5 text-slate-600 ">5:15 PM – 7:45 PM</td>
-                                    <td class="px-8 py-5">
-                                        <span
-                                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100  text-blue-600  text-xs font-bold uppercase tracking-wide">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                                            In-Progress
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <tbody class="divide-y divide-slate-100">
+<?php while($row = $result->fetch_assoc()) { ?>
+<tr class="hover:bg-slate-50 transition-colors">
+
+    <!-- Driver Name -->
+    <td class="px-8 py-5">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold">
+                <?= strtoupper(substr($row['fullname'],0,2)) ?>
+            </div>
+            <span class="font-medium text-slate-800">
+                <?= $row['fullname'] ?>
+            </span>
+        </div>
+    </td>
+
+    <!-- Vehicle -->
+    <td class="px-8 py-5 text-slate-600 font-mono text-sm">
+        <?= $row['vehicle_plate'] ?>
+    </td>
+
+    <!-- Location -->
+    <td class="px-8 py-5 text-slate-600">
+        <?= $row['parking_location'] ?>
+    </td>
+
+    <!-- Time -->
+    <td class="px-8 py-5 text-slate-600">
+        <?= $row['start_time'] ?> - <?= $row['end_time'] ?>
+    </td>
+
+    <!-- Status -->
+    <td class="px-8 py-5">
+        <?php if($row['status']=='confirmed'){ ?>
+            <span class="px-3 py-1 text-xs bg-green-100 text-green-600 rounded-full">
+                Confirmed
+            </span>
+        <?php } elseif($row['status']=='pending'){ ?>
+            <span class="px-3 py-1 text-xs bg-yellow-100 text-yellow-600 rounded-full">
+                Pending
+            </span>
+        <?php } else { ?>
+            <span class="px-3 py-1 text-xs bg-red-100 text-red-600 rounded-full">
+                Cancelled
+            </span>
+        <?php } ?>
+    </td>
+
+</tr>
+<?php } ?>
+</tbody>
                         </table>
                     </div>
                 </div>
